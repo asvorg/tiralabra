@@ -1,13 +1,9 @@
 mod prime_func;
-use crate::prime_func::get_candidate;
-use crate::prime_func::sieve_of_eratosthenes;
-use crate::prime_func::low_level_primality;
+use crate::prime_func::get_prime;
 
 fn main() {
-    //let n = get_candidate();
-    //println!("{}",n);
-    //let v2 = sieve_of_eratosthenes();
-    //println!("{:?}", v2);
-    let llp = low_level_primality();
-    println!("{}",llp);
-}   
+    for i in 0..100{
+    let mut n = get_prime();
+    println!("{}",n);
+    }   
+}
