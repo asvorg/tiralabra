@@ -1,10 +1,14 @@
 use num::pow;
 use rand::Rng;
+use num_bigint::BigUint;
+use num_traits::One;
+use num_traits::ToPrimitive;
+use num_traits::Zero;
 
 
 fn get_candidate() -> u128 {
     let mut rng = rand::thread_rng();
-    let n: u128 = 61;
+    let n: u128 = 64;
 
     let prime_min = pow(2, (n - 1).try_into().unwrap()) + 1;
     let prime_max = pow(2, n.try_into().unwrap()) - 1;
@@ -89,14 +93,48 @@ fn mod_exp(base: u128, exponent: u128, modulus: u128) -> u128 {
     return result
 }
 
-pub fn get_prime() -> u128{
+pub fn get_prime() -> BigUint{
     let mut prime_candidate: u128;
+    let mut prime_candidate2: u128;
+    let mut result: BigUint;
     loop{
        prime_candidate = low_level_primality();
-       //println!("{}",prime_candidate);
        if fermat_primality(prime_candidate) == true{
-        return prime_candidate
-       }
+        loop{
+        prime_candidate2 = low_level_primality();
+        if fermat_primality(prime_candidate2) == true{
+            return safe_prime(prime_candidate,prime_candidate2)
+                }
+            }
+        }
     }
 }
-    
+
+fn safe_prime(prime1: u128, prime2: u128) -> BigUint {
+    let two = BigUint::one() + BigUint::one();
+    let p = BigUint::from(prime1) * BigUint::from(prime2);
+    let mut safe_prime = two.clone() * p.clone() + BigUint::one();
+
+    while !is_prime(&safe_prime) {
+        safe_prime += two.clone() * p.clone();
+    }
+
+    return safe_prime
+}
+
+fn is_prime(num: &BigUint) -> bool {
+    if *num <= BigUint::one() {
+        return false;
+    }
+
+    let sqrt = num.sqrt();
+
+    for i in 2u64..=sqrt.to_u64().unwrap_or(0) {
+        let current = BigUint::from(i);
+        if num % &current == BigUint::zero() {
+            return false;
+        }
+    }
+
+    return true
+}
