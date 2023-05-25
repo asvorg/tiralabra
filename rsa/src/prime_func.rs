@@ -6,7 +6,7 @@ use num_traits::ToPrimitive;
 use num_traits::Zero;
 
 
-fn get_candidate() -> u128 {
+pub fn get_candidate() -> u128 {
     let mut rng = rand::thread_rng();
     let n: u128 = 64;
 
@@ -20,7 +20,7 @@ fn get_candidate() -> u128 {
     return candidate
 }
 
-fn low_level_primality() -> u128 {
+pub fn low_level_primality() -> u128 {
     let v = sieve_of_eratosthenes();
     let mut prime_candidate: u128 = get_candidate();
     loop {

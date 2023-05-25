@@ -1,9 +1,8 @@
 mod prime_func;
-use crate::prime_func::get_prime;
+mod test_prime;
 
 fn main() {
-    for i in 0..100{
-    let mut n = get_prime();
-    println!("{}",n);
-    }   
+    for _i in 0..100{
+    println!("{}",prime_func::low_level_primality());
+    }
 }
