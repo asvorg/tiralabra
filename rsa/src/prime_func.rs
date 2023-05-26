@@ -1,140 +1,59 @@
-use num::pow;
-use rand::Rng;
-use num_bigint::BigUint;
-use num_traits::One;
-use num_traits::ToPrimitive;
-use num_traits::Zero;
+use num_traits::{One, Zero};
+use num_bigint::{BigUint, ToBigUint, RandBigInt};
 
-
-pub fn get_candidate() -> u128 {
-    let mut rng = rand::thread_rng();
-    let n: u128 = 64;
-
-    let prime_min = pow(2, (n - 1).try_into().unwrap()) + 1;
-    let prime_max = pow(2, n.try_into().unwrap()) - 1;
-
-    let mut candidate: u128 = rng.gen_range(prime_min..prime_max);
-    if candidate % 2 == 0{
-        candidate = candidate - 1;
+pub fn get_candidate() -> BigUint {
+    let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
+    let mut candidate: BigUint = rng.gen_biguint(1024);
+    if &candidate % &BigUint::from(2u32) == BigUint::zero() {
+        candidate += BigUint::one();
     }
-    return candidate
+    candidate
 }
 
-pub fn low_level_primality() -> u128 {
-    let v = sieve_of_eratosthenes();
-    let mut prime_candidate: u128 = get_candidate();
-    loop {
-        prime_candidate = get_candidate();
-        for num in v.iter() {
-            if prime_candidate % num == 0 && pow(*num, 2) <= prime_candidate {
-                break;
-            }else{
-                return prime_candidate
-            }
+pub fn miller_rabin(candidate: BigUint) -> bool {
+    let mut a: BigUint = 2u32.to_biguint().unwrap();
+    let mut b: BigUint = a.modpow(&(candidate.clone() - BigUint::one()), &candidate.clone());
+
+    for i in 1..=20 {
+        let exponent = 2u32.pow(i - 1);
+        a = b.clone().modpow(&(exponent.to_biguint().unwrap()), &candidate.clone());
+        b = a.modpow(&BigUint::from(2u32), &candidate.clone());
+
+        if a != BigUint::one() && a != candidate.clone() - BigUint::one() && b == BigUint::one() {
+            return true;
         }
     }
+
+    false
 }
 
-fn sieve_of_eratosthenes() -> Vec<u128> {
-    let n: u128 = 1000000;
-    let mut test_list = vec![true; (n + 1) as usize];
-    test_list[0] = false;
-    test_list[1] = false;
+    pub fn low_level_primality(candidate: BigUint) -> bool{
+        let small_primes: [u32; 13] = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41];
+        for prime in small_primes {
+            if candidate.clone() % prime.to_biguint().unwrap() == BigUint::zero() {
+                return false;
+            }
+        }
+        true
+    }
+
+    pub fn is_prime(n: &BigUint) -> bool {
+        if n.is_zero() || n == &BigUint::one() {
+            return false;
+        }
     
-    let mut prime_numbers = Vec::new();
-
-    for i in 2..=n {
-        if test_list[i as usize] {
-            prime_numbers.push(i);
-            let mut j = i * i;
-            while j <= n {
-                test_list[j as usize] = false;
-                j += i;
+        let sqrt_n = n.sqrt();
+        let two = BigUint::from(2u32);
+    
+        // Check divisibility by odd numbers up to sqrt(n)
+        let mut i = BigUint::from(3u32);
+        while &i <= &sqrt_n {
+            if n % &i == BigUint::zero() {
+                return false;
             }
+            i += &two;
         }
+    
+        true
     }
-
-   return prime_numbers
-}
-
-fn fermat_primality(prime_candidate: u128) -> bool{
-    let k: usize = 100;
-    let mut rng = rand::thread_rng();
-
-    for _ in 0..k {
-        let a: u128 = rng.gen_range(2..prime_candidate);
-        let power = mod_exp(a, prime_candidate - 1, prime_candidate);
-
-        if power != 1 {
-            return false;
-        }
-    }
-
-    return true 
-}
-
-fn mod_exp(base: u128, exponent: u128, modulus: u128) -> u128 {
-    if modulus == 1 {
-        return 0; 
-    }
-
-    let mut result = 1;
-    let mut base = base % modulus;
-
-    let mut exp = exponent;
-    while exp > 0 {
-        if exp % 2 == 1 {
-            result = (result * base) % modulus;
-        }
-        base = (base * base) % modulus;
-        exp /= 2;
-    }
-
-    return result
-}
-
-pub fn get_prime() -> BigUint{
-    let mut prime_candidate: u128;
-    let mut prime_candidate2: u128;
-    let mut result: BigUint;
-    loop{
-       prime_candidate = low_level_primality();
-       if fermat_primality(prime_candidate) == true{
-        loop{
-        prime_candidate2 = low_level_primality();
-        if fermat_primality(prime_candidate2) == true{
-            return safe_prime(prime_candidate,prime_candidate2)
-                }
-            }
-        }
-    }
-}
-
-fn safe_prime(prime1: u128, prime2: u128) -> BigUint {
-    let two = BigUint::one() + BigUint::one();
-    let p = BigUint::from(prime1) * BigUint::from(prime2);
-    let mut safe_prime = two.clone() * p.clone() + BigUint::one();
-
-    while !is_prime(&safe_prime) {
-        safe_prime += two.clone() * p.clone();
-    }
-
-    return safe_prime
-}
-
-fn is_prime(num: &BigUint) -> bool {
-    if *num <= BigUint::one() {
-        return false;
-    }
-
-    let sqrt = num.sqrt();
-
-    for i in 2u64..=sqrt.to_u64().unwrap_or(0) {
-        let current = BigUint::from(i);
-        if num % &current == BigUint::zero() {
-            return false;
-        }
-    }
-
-    return true
-}
+    

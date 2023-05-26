@@ -1,8 +1,14 @@
+use num_bigint::BigUint;
+
 mod prime_func;
-mod test_prime;
 
 fn main() {
-    for _i in 0..100{
-    println!("{}",prime_func::low_level_primality());
-    }
+    loop 
+     {  
+        let mut number: BigUint = prime_func::get_candidate();
+        if prime_func::is_prime(&number) {
+            println!("{} is a prime number.", number)
+            }
+
+        }
 }
