@@ -11,7 +11,7 @@ pub fn get_candidate(n: u64) -> BigUint {
 }
 
 
-fn is_prime(n: &BigUint) -> bool {
+pub fn is_prime(n: &BigUint) -> bool {
     if n.is_zero() || n == &BigUint::one() {
         return false;
     }
