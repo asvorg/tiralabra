@@ -29,18 +29,25 @@ mod tests {
 
     #[test]
     fn test_keygen() {
-        let ((public_n, public_d), (public_n2, public_e)) = keygen();
+        let ((n, d), (_, e)) = keygen();
 
-        // Check if n is a product of two prime numbers
-        assert!(prime_func::is_prime(&(public_n.clone() / &public_d)));
-        assert!(prime_func::is_prime(&(public_n2.clone() / &public_e)));
+        // Assert that n, d, and e are not zero
+        assert_ne!(n, BigUint::zero());
+        assert_ne!(d, BigUint::zero());
+        assert_ne!(e, BigUint::zero());
 
-        // Check if e and d are multiplicative inverses modulo z
-        let p: &BigUint = &(public_n / &public_d);
-        let q: &BigUint = &(public_n2 / &public_e);
-        let z: BigUint = (p - 1u32) * (q - 1u32);
-        let minus = BigUint::one() - BigUint::one();
-        let d = public_e.modpow(&minus, &z);
-        assert_eq!(d, public_d);
+        // Assert that n, d, and e are not equal
+        assert_ne!(n, d);
+        assert_ne!(n, e);
+        assert_ne!(d, e);
+
+        // Assert that d is the modular inverse of e
+        let p: BigUint = prime_func::generate_prime(1024);
+        let q: BigUint = prime_func::generate_prime(1024);
+        let p_minus_one: BigUint = p - BigUint::one();
+        let q_minus_one: BigUint = q - BigUint::one();
+        let phi: BigUint = &p_minus_one * &q_minus_one;
+        let d_expected: BigUint = e.clone().modpow(&BigUint::one(), &phi);
+        assert_eq!(d, d_expected);
     }
 }

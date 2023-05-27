@@ -1,5 +1,6 @@
 use num_traits::{One, Zero};
 use num_bigint::{BigUint, ToBigUint, RandBigInt};
+use rand::Rng;
 
 pub fn get_candidate(n: u64) -> BigUint {
     let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
@@ -95,6 +96,7 @@ mod tests {
     use num_bigint::BigUint;
     use num_traits::{Zero,One};
     use std::ops::Shl;
+    use rand::Rng;
 }
 
 #[test]
@@ -134,23 +136,23 @@ fn test_miller_rabin() {
     let non_primes: Vec<u64> = vec![4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20];
 
     // Test known prime numbers
-    for prime in primes {
-        let n = prime.to_biguint().unwrap();
+    for &prime in &primes {
+        let n: BigUint = prime.to_biguint().unwrap();
         assert!(miller_rabin(&n), "{} should be prime", prime);
     }
 
     // Test known non-prime numbers
     for non_prime in non_primes {
-        let n = non_prime.to_biguint().unwrap();
+        let n: BigUint = non_prime.to_biguint().unwrap();
         assert!(!miller_rabin(&n), "{} should not be prime", non_prime);
     }
 
     // Test random numbers
-    let mut rng = rand::thread_rng();
+    let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
     for _ in 0..10 {
         let n: u64 = rng.gen_range(1000..10000);
-        let big_n = n.to_biguint().unwrap();
-        let is_prime = primes.contains(&n);
+        let big_n: BigUint = n.to_biguint().unwrap();
+        let is_prime: bool = primes.clone().contains(&n);
         assert_eq!(miller_rabin(&big_n), is_prime, "{} should be prime", n);
     }
 }
