@@ -127,3 +127,30 @@ fn test_generate_prime() {
         assert!(is_prime(prime));
     }
 }
+
+#[test]
+fn test_miller_rabin() {
+    let primes: Vec<u64> = vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29];
+    let non_primes: Vec<u64> = vec![4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20];
+
+    // Test known prime numbers
+    for prime in primes {
+        let n = prime.to_biguint().unwrap();
+        assert!(miller_rabin(&n), "{} should be prime", prime);
+    }
+
+    // Test known non-prime numbers
+    for non_prime in non_primes {
+        let n = non_prime.to_biguint().unwrap();
+        assert!(!miller_rabin(&n), "{} should not be prime", non_prime);
+    }
+
+    // Test random numbers
+    let mut rng = rand::thread_rng();
+    for _ in 0..10 {
+        let n: u64 = rng.gen_range(1000..10000);
+        let big_n = n.to_biguint().unwrap();
+        let is_prime = primes.contains(&n);
+        assert_eq!(miller_rabin(&big_n), is_prime, "{} should be prime", n);
+    }
+}
