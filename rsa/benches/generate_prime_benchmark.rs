@@ -1,4 +1,4 @@
-use prime_func::generate_prime;
+super prime_func::generate_prime;
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
 pub fn generate_prime_benchmark(c: &mut Criterion) {
@@ -7,7 +7,7 @@ pub fn generate_prime_benchmark(c: &mut Criterion) {
 
 criterion_group!(
     name = benches;
-    config = Criterion::default().with_measurement_time(std::time::Duration::from_secs(5));
+    config = Criterion::default().measurement_time(std::time::Duration::from_secs(5));
     targets = generate_prime_benchmark
 );
 
