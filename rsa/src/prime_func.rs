@@ -16,10 +16,10 @@ fn is_prime(n: &BigUint) -> bool {
         return false;
     }
 
-    let sqrt_n = n.sqrt();
-    let two = BigUint::from(2u32);
+    let sqrt_n: BigUint = n.sqrt();
+    let two: BigUint = BigUint::from(2u32);
 
-    let mut i = BigUint::from(3u32);
+    let mut i: BigUint = BigUint::from(3u32);
     while &i <= &sqrt_n {
         if n % &i == BigUint::zero() {
             return false;
@@ -61,11 +61,50 @@ fn miller_rabin(candidate: &BigUint) -> bool {
 
 pub fn generate_prime(n: u64) -> &'static BigUint {
     loop {
-        let candidate = get_candidate(n);
+        let candidate: BigUint = get_candidate(n);
             if low_level_primality(&candidate){
                 if is_prime(&candidate) {
                     return Box::leak(Box::new(candidate));
                 }
             }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::get_candidate;
+    use num_bigint::BigUint;
+    use num_traits::{Zero,One};
+    use std::ops::Shl;
+}
+
+#[test]
+fn test_is_prime() {
+    // Test with prime numbers
+    let primes: [u64; 5] = [2, 3, 5, 7, 11];
+    for &prime in primes.iter() {
+        let n: BigUint = BigUint::from(prime);
+        assert!(is_prime(&n));
+    }
+
+    // Test with zero and one
+    let zero: BigUint = BigUint::zero();
+    let one: BigUint = BigUint::one();
+    assert!(!is_prime(&zero));
+    assert!(!is_prime(&one));
+
+    // Test with large prime number
+    let large_prime: BigUint = BigUint::from(1_000_000_007u64);
+    assert!(is_prime(&large_prime));
+
+}
+
+#[test]
+fn test_generate_prime() {
+    // Test generating prime numbers
+    let primes_to_generate = 10;
+    for _ in 0..primes_to_generate {
+        let prime = generate_prime(64);
+        assert!(is_prime(prime));
     }
 }
