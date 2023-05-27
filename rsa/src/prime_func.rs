@@ -102,9 +102,9 @@ fn test_is_prime() {
 #[test]
 fn test_generate_prime() {
     // Test generating prime numbers
-    let primes_to_generate = 10;
+    let primes_to_generate: i32 = 10;
     for _ in 0..primes_to_generate {
-        let prime = generate_prime(64);
+        let prime: &BigUint = generate_prime(30);
         assert!(is_prime(prime));
     }
 }
