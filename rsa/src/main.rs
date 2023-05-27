@@ -4,5 +4,7 @@ mod testers;
 mod rsa;
 
 fn main() {
-    println!("{:?}",rsa::keygen());
+
+    println!("{:?}",rsa::keygen())
+
 }

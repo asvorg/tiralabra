@@ -42,28 +42,47 @@ fn low_level_primality(candidate: &BigUint) -> bool{
 }
 
 
-fn miller_rabin(candidate: &BigUint) -> bool {
-    let mut a: BigUint = 2u32.to_biguint().unwrap();
-    let mut b: BigUint = a.modpow(&(candidate.clone() - BigUint::one()), &candidate.clone());
-
-    for i in 1..=20 {
-        let exponent = 2u32.pow(i - 1);
-        a = b.clone().modpow(&(exponent.to_biguint().unwrap()), &candidate.clone());
-        b = a.modpow(&BigUint::from(2u32), &candidate.clone());
-
-        if a != BigUint::one() && a != candidate.clone() - BigUint::one() && b == BigUint::one() {
-            return true;
+fn miller_rabin(n: &BigUint) -> bool {
+    let k: u32 = 50;
+    if n <= &BigUint::one() {
+        return false;
+    }
+    let mut d: BigUint = n - BigUint::one();
+    let mut r: i32 = 0;
+    while &d % &BigUint::from(2u32) == BigUint::zero() {
+        d >>= 1;
+        r += 1;
+    }
+    let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
+    for _ in 0..k {
+        let a: BigUint = rng.gen_biguint_range(&BigUint::from(2u32), &n);
+        let mut x: BigUint = a.modpow(&d, &n);
+        if x == BigUint::one() || x == n - BigUint::one() {
+            continue;
+        }
+        let mut i: i32 = 0;
+        while i < r - 1 {
+            x = x.modpow(&BigUint::from(2u32), &n);
+            if x == BigUint::one() {
+                return false;
+            }
+            if x == n - BigUint::one() {
+                break;
+            }
+            i += 1;
+        }
+        if i == r - 1 {
+            return false;
         }
     }
-
-    false
+    true
 }
 
 pub fn generate_prime(n: u64) -> &'static BigUint {
     loop {
         let candidate: BigUint = get_candidate(n);
             if low_level_primality(&candidate){
-                if is_prime(&candidate) {
+                if miller_rabin(&candidate) {
                     return Box::leak(Box::new(candidate));
                 }
             }
@@ -104,7 +123,7 @@ fn test_generate_prime() {
     // Test generating prime numbers
     let primes_to_generate: i32 = 10;
     for _ in 0..primes_to_generate {
-        let prime: &BigUint = generate_prime(30);
+        let prime: &BigUint = generate_prime(1024);
         assert!(is_prime(prime));
     }
 }
