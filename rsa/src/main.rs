@@ -1,14 +1,8 @@
 use num_bigint::BigUint;
-
 mod prime_func;
+mod testers;
+mod rsa;
 
 fn main() {
-    loop 
-     {  
-        let mut number: BigUint = prime_func::get_candidate();
-        if prime_func::is_prime(&number) {
-            println!("{} is a prime number.", number)
-            }
-
-        }
+    println!("{:?}",rsa::keygen());
 }
