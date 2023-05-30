@@ -4,6 +4,7 @@ use crate::prime_func;
 use num_bigint::BigUint;
 use num_traits::{One, Zero,ToPrimitive,FromPrimitive};
 use rug::Integer;
+use num_integer::Integer;
 
 
 pub fn keygen() -> ((BigUint, BigUint), (BigUint, BigUint)){
@@ -17,8 +18,10 @@ pub fn keygen() -> ((BigUint, BigUint), (BigUint, BigUint)){
     let q_minus_one: BigUint = q - BigUint::one();
     let phi: BigUint = &p_minus_one * &q_minus_one;
 
-    let d: Option<BigUint> = mod_inverse(&e, &phi);
+    let d_option: Option<BigUint> = mod_inverse(&e, &phi);
     
+    let d: BigUint = d_option.unwrap_or_else(|| BigUint::zero());
+
     return ((n.clone(),d),(n.clone(),e))
 }
 
