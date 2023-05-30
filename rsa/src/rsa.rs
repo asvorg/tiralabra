@@ -26,7 +26,7 @@ pub fn keygen() -> ((BigUint, BigUint), (BigUint, BigUint)){
 }
 
 fn mod_inverse(a: &BigUint, m: &BigUint) -> Option<BigUint> {
-    let (gcd, x, _) = a.extended_gcd(m)?;
+    let (gcd, x, _) = a.extended_gcd(m);
 
     if gcd.is_one() {
         Some((x % m + m) % m)
