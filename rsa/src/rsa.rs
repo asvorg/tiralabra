@@ -1,9 +1,8 @@
-use std::u128;
-
 use crate::prime_func;
+use std::u128;
+use std::option::Option;
 use num_bigint::BigUint;
 use num_traits::{One, Zero,ToPrimitive,FromPrimitive};
-//use rug::Integer;
 use num_integer::Integer;
 
 
