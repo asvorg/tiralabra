@@ -1,6 +1,6 @@
 use crate::prime_func;
 use num_bigint::BigUint;
-use num_traits::{One,Zero};
+use num_traits::{One, Zero};
 
 pub fn keygen() -> ((BigUint, BigUint), (BigUint, BigUint)){
     let p: &BigUint = prime_func::generate_prime(1024);
@@ -42,8 +42,8 @@ mod tests {
         assert_ne!(d, e);
 
         // Assert that d is the modular inverse of e
-        let p: BigUint = prime_func::generate_prime(1024);
-        let q: BigUint = prime_func::generate_prime(1024);
+        let p: &BigUint = prime_func::generate_prime(1024);
+        let q: &BigUint = prime_func::generate_prime(1024);
         let p_minus_one: BigUint = p - BigUint::one();
         let q_minus_one: BigUint = q - BigUint::one();
         let phi: BigUint = &p_minus_one * &q_minus_one;
