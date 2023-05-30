@@ -1,6 +1,10 @@
+use std::u128;
+
 use crate::prime_func;
 use num_bigint::BigUint;
-use num_traits::{One, Zero};
+use num_traits::{One, Zero,ToPrimitive,FromPrimitive};
+use rug::Integer;
+
 
 pub fn keygen() -> ((BigUint, BigUint), (BigUint, BigUint)){
     let p: &BigUint = prime_func::generate_prime(1024);
@@ -9,17 +13,23 @@ pub fn keygen() -> ((BigUint, BigUint), (BigUint, BigUint)){
     let z: BigUint = (p - 1u32) * (q - 1u32);
     let e: BigUint = BigUint::from(65537u64);
 
-    let d: BigUint = calculate_d(&e, p, q);
+    let p_minus_one: BigUint = p - BigUint::one();
+    let q_minus_one: BigUint = q - BigUint::one();
+    let phi: BigUint = &p_minus_one * &q_minus_one;
+
+    let d: Option<BigUint> = mod_inverse(&e, &phi);
+    
     return ((n.clone(),d),(n.clone(),e))
 }
 
+fn mod_inverse(a: &BigUint, m: &BigUint) -> Option<BigUint> {
+    let (gcd, x, _) = a.extended_gcd(m)?;
 
-fn calculate_d(e: &BigUint, p: &BigUint, q: &BigUint) -> BigUint {
-    let p_minus_one: BigUint = p - 1u32;
-    let q_minus_one: BigUint = q - 1u32;
-    let phi: BigUint = &p_minus_one * &q_minus_one;
-    
-    e.clone().modpow(&BigUint::one(), &phi)
+    if gcd.is_one() {
+        Some((x % m + m) % m)
+    } else {
+        None
+    }
 }
 
 
