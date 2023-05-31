@@ -77,7 +77,7 @@ fn test_low_level_primality() {
 
 #[test]
 fn test_keygen() {
-    let ((n, d), (m, e)) = Keygen::keygen();
+    let ((n, d), (m, e)) = Keygen::keygen(1024);
 
     // Assert that n, d, m, and e are not empty
     assert!(!n.is_zero());
