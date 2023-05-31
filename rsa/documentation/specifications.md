@@ -1,4 +1,4 @@
-## Specifications
+# Specifications
 
 - RSA implementation done in Rust.
 - All the needed prime number generations will be implemented by me, as well as the relevant key generations.
@@ -8,3 +8,13 @@
 - Time complexity still unclear
 - I am a TKT student
 - The whole project will be done in english
+
+## Benchmarks
+
+### Prime generation benchmarks
+
+Prime generation times with the generate_prime() function from bitsizes 128, through to 4096 bits:
+
+```
+
+```

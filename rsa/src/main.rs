@@ -1,10 +1,14 @@
 use std::env;
 mod prime_func;
-mod testers;
-mod rsa;
+mod keygen;
+
+use crate::keygen::Keygen;
 
 fn main() {
     env::set_var("RUST_BACKTRACE", "1");
-    println!("{:?}",rsa::keygen())
+    let ((n, d), (_n_2, e)) = Keygen::keygen();
+    println!("Private key: {},{}", n,d);
+    println!();
+    println!("Public key: {},{}", n,e);
 
 }
