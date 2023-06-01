@@ -53,15 +53,7 @@ fn test_miller_rabin() {
         let n: BigUint = non_prime.to_biguint().unwrap();
         assert!(!Prime_func::miller_rabin(&n), "{} should not be prime", non_prime);
     }
-    /* 
-    // Test random numbers
-    let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
-    for _ in 0..10 {
-        let n: u64 = rng.gen_range(1000..10000);
-        let big_n: BigUint = n.to_biguint().unwrap();
-        let is_prime: bool = primes.clone().contains(&n);
-        assert_eq!(miller_rabin(&big_n), is_prime, "{} should be prime", n);
-    } */
+    
 }
 
 #[test]
@@ -92,4 +84,29 @@ fn test_keygen() {
     println!("e: {}", e);
     }
 
+#[test]
+fn test_calculate_d() {
+    // Test with a known prime number
+    let p: BigUint = 61.to_biguint().unwrap();
+    let q: BigUint = 53.to_biguint().unwrap();
+    let e: BigUint = 65537.to_biguint().unwrap();
+    let p_minus_one: BigUint = p - BigUint::one();
+    let q_minus_one: BigUint = q - BigUint::one();
+    let phi: BigUint = &p_minus_one * &q_minus_one;
+    let d: BigUint = Keygen::calculate_d(e.clone(), phi.clone());
+    assert_eq!(d, 3723233.to_biguint().unwrap());
+    }
+
+#[test]
+fn test_gcd() {
+    // Test with a known prime number
+    let p: BigUint = 61.to_biguint().unwrap();
+    let q: BigUint = 53.to_biguint().unwrap();
+    let e: BigUint = 65537.to_biguint().unwrap();
+    let p_minus_one: BigUint = p - BigUint::one();
+    let q_minus_one: BigUint = q - BigUint::one();
+    let phi: BigUint = &p_minus_one * &q_minus_one;
+    let gcd: BigUint = Keygen::gcd(e.clone(), phi.clone());
+    assert_eq!(gcd, BigUint::one());
+    }
 }

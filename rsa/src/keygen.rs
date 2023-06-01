@@ -58,7 +58,7 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){ //Calculate 
         ((n.clone(), d.clone()), (n, e.clone()))
     }
 
-    fn calculate_d(e: BigUint, phi: BigUint) -> BigUint{
+    pub fn calculate_d(e: BigUint, phi: BigUint) -> BigUint{
         let e_float: BigFloat = e.to_f64().unwrap().into();
         let mut phi_float: BigFloat = phi.to_f64().unwrap().into();
         let phi_float_orig: BigFloat = phi_float;    
@@ -66,7 +66,7 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){ //Calculate 
         let mut d_float: BigFloat = (BigFloat::one() + phi_float) / e_float;
 
         while (BigFloat::one() + phi_float) % e_float != BigFloat::zero(){
-            println!("d_float: {}", d_float);  
+            //println!("d_float: {}", d_float);  
             phi_float = phi_float_orig + phi_float;
             d_float = (BigFloat::one() + phi_float) / e_float;
         }
