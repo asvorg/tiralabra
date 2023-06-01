@@ -1,8 +1,8 @@
 use num_traits::{One, Zero};
 use num_bigint::{BigUint, ToBigUint, RandBigInt};
 
-pub struct Prime_func;
-impl Prime_func {
+pub struct PrimeFunc;
+impl PrimeFunc {
     
 pub fn get_candidate(n: u64) -> BigUint { //Randomly get a candidate number to be a possible prime
     let mut rng: rand::rngs::ThreadRng = rand::thread_rng();

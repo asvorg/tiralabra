@@ -1,9 +1,10 @@
 use std::env;
-mod prime_func;
 mod keygen;
 mod encryption;
 mod decryption;
-use crate::{keygen::Keygen};
+mod prime_func;
+use crate::keygen::Keygen;
+
 
 fn main() {
     env::set_var("RUST_BACKTRACE", "128");

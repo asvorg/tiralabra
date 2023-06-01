@@ -1,15 +1,15 @@
 use num_bigfloat::BigFloat;
-use num_bigint::{BigUint, BigInt, ToBigUint};
-use num_traits::{One, Zero,ToPrimitive,FromPrimitive};
-use crate::prime_func::Prime_func;
+use num_bigint::{BigUint, ToBigUint};
+use num_traits::{One, Zero,ToPrimitive};
+use crate::prime_func::PrimeFunc;
 pub struct Keygen;
 impl Keygen{
 
 pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){ //Calculate the keys for the encryption and decryption functions
-    let p: &BigUint = Prime_func::generate_prime(num);
-    let q: &BigUint = Prime_func::generate_prime(num);
+    let p: &BigUint = PrimeFunc::generate_prime(num);
+    let q: &BigUint = PrimeFunc::generate_prime(num);
     let n: BigUint = p * q;
-    let z: BigUint = (p - 1u32) * (q - 1u32);
+    let _z: BigUint = (p - 1u32) * (q - 1u32);
     let e: BigUint = BigUint::from(65537u64);
 
     let p_minus_one: BigUint = p - BigUint::one();
@@ -42,7 +42,7 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){ //Calculate 
         let p: &BigUint = &61u32.to_biguint().unwrap();
         let q: &BigUint = &53u32.to_biguint().unwrap();
         let n: BigUint = p * q;
-        let z: BigUint = (p - 1u32) * (q - 1u32);
+        let _z: BigUint = (p - 1u32) * (q - 1u32);
 
         let e: BigUint = BigUint::from(65537u64);
         let p_minus_one: BigUint = p - BigUint::one();

@@ -1,5 +1,5 @@
 use num_bigint::{BigUint, ToBigUint};
-use num_traits::{One, Zero,ToPrimitive,FromPrimitive};
+use num_traits::{Zero,ToPrimitive};
 
 pub struct Decrpypt;
 impl Decrpypt {

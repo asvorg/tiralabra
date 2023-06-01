@@ -1,6 +1,6 @@
 use criterion::{criterion_group, criterion_main, Criterion};
 use num_bigint::{BigUint, ToBigUint};
-use rsa::prime_func::Prime_func;
+use rsa::prime_func::PrimeFunc;
 use rsa::keygen::Keygen;
 
 fn generate_prime_benchmark(c: &mut Criterion) {
@@ -10,7 +10,7 @@ fn generate_prime_benchmark(c: &mut Criterion) {
     for &bits in bit_sizes.iter() {
         group.bench_function(format!("{} bits", bits), |b| {
             b.iter(|| {
-                Prime_func::generate_prime(bits);
+                PrimeFunc::generate_prime(bits);
             });
         });
     }
