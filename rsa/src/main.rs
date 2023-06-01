@@ -6,15 +6,15 @@ mod decryption;
 use crate::{keygen::Keygen};
 
 fn main() {
-    env::set_var("RUST_BACKTRACE", "1");
-    let ((n, d), (n_2, e)) = Keygen::keygen(64);
+    env::set_var("RUST_BACKTRACE", "128");
+    let ((n, d), (n_2, e)) = Keygen::keygen(24);
     println!("n: {}", n);
     println!();
     println!("d: {}", d);
     println!();
     println!("e: {}", e);
     println!();
-    let message = "w";
+    let message = "This";
     let message_uint = encryption::Encrypt::convert_text_to_int(message);
     let message_uint_encrypted = encryption::Encrypt::encrypt(message_uint.clone(),n,e);
     println!("message_uint: {}",message_uint);

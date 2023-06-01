@@ -44,3 +44,4 @@ Found 4 outliers among 100 measurements (4.00%)
 - https://www.di-mgt.com.au/rsa_theory.html
 - https://en.wikipedia.org/wiki/RSA_(cryptosystem)
 - https://www.geeksforgeeks.org/rsa-algorithm-cryptography/
+- https://www.youtube.com/watch?v=aJ9HAdiAnIU&t=170s d calculation

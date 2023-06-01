@@ -2,7 +2,6 @@ use num_bigfloat::BigFloat;
 use num_bigint::{BigUint, BigInt, ToBigUint};
 use num_traits::{One, Zero,ToPrimitive,FromPrimitive};
 use crate::prime_func::Prime_func;
-use num_integer::Integer;
 pub struct Keygen;
 impl Keygen{
 
@@ -22,29 +21,10 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){ //Calculate 
         panic!("e and phi are not coprime");
     }
 
-
     let d: BigUint = Keygen::calculate_d(e.clone(), phi.clone());
 
     ((n.clone(), d), (n, e.clone()))
     }
-
-
-    fn mod_inverse(a: BigUint, m: BigUint) -> BigUint {
-        let mut mn: (BigUint, BigUint) = (m.clone(), a.clone());
-        let mut xy: (BigUint, BigUint) = (BigUint::zero(), BigUint::one());
-    
-        while mn.1 != BigUint::zero() {
-            xy = (xy.1.clone(), xy.0 - (mn.0.clone() / mn.1.clone()) * xy.1.clone());
-            mn = (mn.1.clone(), mn.0 % mn.1.clone());
-        }
-    
-        while xy.0 < BigUint::zero() {
-            xy.0 += m.clone();
-        }
-    
-        xy.0
-    }
-
 
    //implement gcd function
     pub fn gcd(a: BigUint, b: BigUint) -> BigUint{
@@ -69,14 +49,11 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){ //Calculate 
         let q_minus_one: BigUint = q - BigUint::one();
         let phi: BigUint = &p_minus_one * &q_minus_one;
 
-        //check if e and phi are coprime
         if Keygen::gcd(e.clone(), phi.clone()) != BigUint::one(){
             panic!("e and phi are not coprime");
         }
 
-
         let d: BigUint = Keygen::calculate_d(e.clone(), phi.clone());
-
 
         ((n.clone(), d.clone()), (n, e.clone()))
     }
