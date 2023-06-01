@@ -339,6 +339,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "num-bigfloat"
+version = "1.6.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a56a51331d84e5827f5f875945e505f3c4e54a13fb31153449b1c994c159b883"
+dependencies = [
+ "num-traits",
+ "rand",
+ "serde",
+]
+
+[[package]]
 name = "num-bigint"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -549,6 +560,7 @@ dependencies = [
  "criterion",
  "modinverse",
  "num",
+ "num-bigfloat",
  "num-bigint",
  "num-integer",
  "num-traits",
