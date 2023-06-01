@@ -4,7 +4,8 @@ use num_bigint::{BigUint, ToBigUint, RandBigInt};
 pub struct PrimeFunc;
 impl PrimeFunc {
     
-pub fn get_candidate(n: u64) -> BigUint { //Randomly get a candidate number to be a possible prime
+//Randomly get a candidate number to be a possible prime
+pub fn get_candidate(n: u64) -> BigUint {
     let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
     let mut candidate: BigUint = rng.gen_biguint(n);
     if &candidate % &BigUint::from(2u32) == BigUint::zero() {
@@ -13,8 +14,8 @@ pub fn get_candidate(n: u64) -> BigUint { //Randomly get a candidate number to b
     candidate
 }
 
-
-pub fn is_prime(n: &BigUint) -> bool {// Test if the number is prime WITH CERTAINITY, only used for tests
+// Test if the number is prime WITH CERTAINITY, only used for tests
+pub fn is_prime(n: &BigUint) -> bool {
     if n.is_zero() || n == &BigUint::one() {
         return false;
     }
@@ -32,7 +33,7 @@ pub fn is_prime(n: &BigUint) -> bool {// Test if the number is prime WITH CERTAI
 
     true
 }
-
+// low level primality test
 pub fn low_level_primality(candidate: &BigUint) -> bool{// Test low level primality, using this it is possible to discard the random numbers faster
     let small_primes: [u32; 11] = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31];
     for prime in small_primes {
@@ -43,8 +44,8 @@ pub fn low_level_primality(candidate: &BigUint) -> bool{// Test low level primal
     true
 }
 
-
-pub fn miller_rabin(n: &BigUint) -> bool {//Miller Rabin primality test
+// Miller Rabin primality test with 50 iterations, probability of prime very high
+pub fn miller_rabin(n: &BigUint) -> bool {
     let k: u32 = 50;
     if n <= &BigUint::one() {
         return false;

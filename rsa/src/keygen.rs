@@ -5,7 +5,8 @@ use crate::prime_func::PrimeFunc;
 pub struct Keygen;
 impl Keygen{
 
-pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){ //Calculate the keys for the encryption and decryption functions
+    //generate the keys for the encryption and decryption functions
+pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){
     let p: &BigUint = PrimeFunc::generate_prime(num);
     let q: &BigUint = PrimeFunc::generate_prime(num);
     let n: BigUint = p * q;
@@ -37,7 +38,8 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){ //Calculate 
         }
         b
     }
- 
+    
+    //testing function for keygen with fixed values
     pub fn dummy_keygen() -> ((BigUint, BigUint), (BigUint, BigUint)){
         let p: &BigUint = &61u32.to_biguint().unwrap();
         let q: &BigUint = &53u32.to_biguint().unwrap();
@@ -58,6 +60,7 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){ //Calculate 
         ((n.clone(), d.clone()), (n, e.clone()))
     }
 
+    //calculate rsa d value
     pub fn calculate_d(e: BigUint, phi: BigUint) -> BigUint{
         let e_float: BigFloat = e.to_f64().unwrap().into();
         let mut phi_float: BigFloat = phi.to_f64().unwrap().into();
