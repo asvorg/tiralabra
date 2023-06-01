@@ -6,4 +6,5 @@
 - Started working on encryption and decryption
 - Encryption works now on small p and q, problems calculating d with larger p and q
 - *The key size and the message length have to match, so 8 bits per character in message*
-- Padding required
+- Padding added, not working completely yet
+- Need to use [Malachite](https://www.malachite.rs/) for enough precision of floating point numbers
