@@ -15,7 +15,7 @@ num-integer = "0.1.45"
 criterion = "0.5.1"
 num-bigfloat = "1.6.2"
 checkstyle_formatter = "1.0.2"
-astro-float = "0.6.9"
+f128 = "0.2.9"
 
 [dependencies.malachite]
 version = "0.3.2"

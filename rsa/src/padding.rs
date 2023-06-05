@@ -4,6 +4,7 @@ impl Padding{
     
 
 // a padding function which takes the key size and the message and pads it with 0s
+// doesnt always work
 pub fn pad(key_size: u64, message: &str) -> String{
     let mut padded_message: String = String::new();
     let message: String = message.to_string();
