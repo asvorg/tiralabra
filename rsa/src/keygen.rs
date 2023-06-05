@@ -69,13 +69,15 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){
         let mut phi_float: BigDecimal = Self::biguint_to_bigdecimal(&phi);
         let phi_float_orig: BigDecimal = phi_float;    
         
-        let mut d_float: BigDecimal = (BigDecimal::one() + phi_float) / e_float;
+        let mut d_float: BigDecimal = (BigDecimal::one() + phi_float) % e_float;
+        let mut res: BigDecimal = d_float.clone();
 
-        while (BigDecimal::one() + phi_float) % e_float != BigDecimal::zero() {
+        while res != BigDecimal::zero() {
             let updated_phi_float: BigDecimal = &phi_float_orig + &phi_float;
-            d_float = (BigDecimal::one() + updated_phi_float.clone()) / e_float;
+            d_float = (BigDecimal::one() + updated_phi_float.clone()) / e_float.clone();
             println!("d_float: {}", d_float);
             phi_float = updated_phi_float;
+            res = d_float.clone();
         }
 
         let d: BigUint = d_float.to_u64().unwrap().into();
