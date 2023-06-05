@@ -9,14 +9,15 @@ use crate::keygen::Keygen;
 
 fn main() {
     env::set_var("RUST_BACKTRACE", "128");
-    let ((n, d), (n_2, e)) = Keygen::keygen(32);
+    let ((n, d), (n_2, e)) = Keygen::keygen(40);
     println!("n: {}", n);
     println!();
     println!("d: {}", d);
     println!();
     println!("e: {}", e);
     println!();
-    let message: String = padding::Padding::pad(32, "iiii");
+    //let message: String = padding::Padding::pad(32, "iiiii");
+    let message: String = String::from("iiii");
     let message_uint: num_bigint::BigUint = encryption::Encrypt::convert_text_to_int(&message);
     let message_uint_encrypted: num_bigint::BigUint = encryption::Encrypt::encrypt(message_uint.clone(),n,e);
     println!("message_uint: {}",message_uint);

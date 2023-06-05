@@ -1,8 +1,10 @@
+use std::str::FromStr;
+
 use num_bigfloat::BigFloat;
 use num_bigint::{BigUint, ToBigUint};
 use num_traits::{One, Zero,ToPrimitive};
 use crate::prime_func::PrimeFunc;
-use f128;
+use bigdecimal::BigDecimal;
 pub struct Keygen;
 impl Keygen{
 
@@ -63,23 +65,30 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){
 
     //calculate rsa d value
     pub fn calculate_d(e: BigUint, phi: BigUint) -> BigUint{
-        let e_float: f128 = e.to_f128().unwrap().into();
-        let mut phi_float: f128 = phi.to_f128().unwrap().into();
-        let phi_float_orig: f128 = phi_float;
+        let e_float: BigDecimal = Self::biguint_to_bigdecimal(&e);
+        let mut phi_float: BigDecimal = Self::biguint_to_bigdecimal(&phi);
+        let phi_float_orig: BigDecimal = phi_float;    
         
-        let mut d_float: f128 = (1 + phi_float) / e_float;
+        let mut d_float: BigDecimal = (BigDecimal::one() + phi_float) / e_float;
 
-        while f128::is_zero((1 + phi_float) % e_float) == false{
-            //println!("d_float: {}", d_float);  
-            phi_float = phi_float_orig + phi_float;
-            d_float = (BigFloat::one() + phi_float) / e_float;
+        while (BigDecimal::one() + phi_float) % e_float != BigDecimal::zero() {
+            let updated_phi_float: BigDecimal = &phi_float_orig + &phi_float;
+            d_float = (BigDecimal::one() + updated_phi_float.clone()) / e_float;
+            println!("d_float: {}", d_float);
+            phi_float = updated_phi_float;
         }
 
         let d: BigUint = d_float.to_u64().unwrap().into();
         d
-  
+    }
+
+    
+    fn biguint_to_bigdecimal(value: &BigUint) -> BigDecimal {
+        let value_str = value.to_str_radix(10);
+        BigDecimal::from_str(&value_str).unwrap()
     }
 }
+
     
 
 
