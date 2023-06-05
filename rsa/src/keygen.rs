@@ -2,7 +2,7 @@ use num_bigfloat::BigFloat;
 use num_bigint::{BigUint, ToBigUint};
 use num_traits::{One, Zero,ToPrimitive};
 use crate::prime_func::PrimeFunc;
-use f128::f128;
+use f128;
 pub struct Keygen;
 impl Keygen{
 
@@ -63,13 +63,13 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){
 
     //calculate rsa d value
     pub fn calculate_d(e: BigUint, phi: BigUint) -> BigUint{
-        let e_float: BigFloat = e.to_f128().unwrap().into();
-        let mut phi_float: BigFloat = phi.to_f128().unwrap().into();
-        let phi_float_orig: BigFloat = phi_float;
+        let e_float: f128 = e.to_f128().unwrap().into();
+        let mut phi_float: f128 = phi.to_f128().unwrap().into();
+        let phi_float_orig: f128 = phi_float;
         
-        let mut d_float: BigFloat = (BigFloat::one() + phi_float) / e_float;
+        let mut d_float: f128 = (1 + phi_float) / e_float;
 
-        while (BigFloat::one() + phi_float) % e_float != BigFloat::zero(){
+        while f128::is_zero((1 + phi_float) % e_float) == false{
             //println!("d_float: {}", d_float);  
             phi_float = phi_float_orig + phi_float;
             d_float = (BigFloat::one() + phi_float) / e_float;
