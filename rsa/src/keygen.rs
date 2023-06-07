@@ -40,7 +40,7 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){
         b
     }
 
-
+    //extended euclidean algorithm for calculating d
     pub fn extended_euclidean_algorithm(e:BigUint,phi:BigUint) -> BigUint{
 
         let mut e_bigint = Self::convert_biguint_to_bigint(e);
