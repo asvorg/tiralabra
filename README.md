@@ -2,7 +2,7 @@
 
 ## RSA implementation in Rust
 
-RSA implementation in Rust. Prime calculation done by hand.
+RSA implementation in Rust. Prime calculation done by hand. Project for University of Helsinki datastructures and algorithms project work.
 
 [Specifications](https://github.com/asvorg/tiralabra/blob/main/rsa/documentation/specifications.md)
 
