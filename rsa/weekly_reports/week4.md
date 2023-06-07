@@ -1,0 +1,4 @@
+- Implemented working version of the extended Euclidean algorithm, d calculation works now
+- The core functionality now done
+- Still some strange bug which makes the program crash sometimes, the frequency seems to be increasing as the size of the primes get larger
+- Started working on the UI to make the program properly usable

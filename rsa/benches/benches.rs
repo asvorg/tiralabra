@@ -18,8 +18,8 @@ fn generate_prime_benchmark(c: &mut Criterion) {
     group.finish();
 }
 
-//benchmark the calculate_d function
-fn calculate_d_benchmark(c: &mut Criterion) {
+//benchmark the extended euclidean algorithm
+fn extended_euclidean_algorithm_benchmark(c: &mut Criterion) {
     let mut group: criterion::BenchmarkGroup<criterion::measurement::WallTime> = c.benchmark_group("calculate_d");
     let bit_sizes: [i32; 6] = [128,256,512, 1024, 2048, 4096];
 
@@ -28,7 +28,7 @@ fn calculate_d_benchmark(c: &mut Criterion) {
             b.iter(|| {
                 let e: BigUint = 65537.to_biguint().unwrap();
                 let phi: BigUint = 3723232.to_biguint().unwrap();
-                Keygen::calculate_d(e.clone(), phi.clone());
+                Keygen::extended_euclidean_algorithm(e.clone(), phi.clone());
             });
         });
     }

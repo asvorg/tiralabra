@@ -12,3 +12,5 @@
 [Week 2 report](https://github.com/asvorg/tiralabra/blob/main/rsa/weekly_reports/week2.md)
 
 [Week 3 report](https://github.com/asvorg/tiralabra/blob/main/rsa/weekly_reports/week3.md)
+
+[Week 4 report](https://github.com/asvorg/tiralabra/blob/main/rsa/weekly_reports/week4.md)

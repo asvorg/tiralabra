@@ -1,10 +1,8 @@
 use std::str::FromStr;
-
-use num_bigfloat::BigFloat;
+use num_bigint::BigInt;
 use num_bigint::{BigUint, ToBigUint};
-use num_traits::{One, Zero,ToPrimitive};
+use num_traits::{One, Zero};
 use crate::prime_func::PrimeFunc;
-use bigdecimal::BigDecimal;
 pub struct Keygen;
 impl Keygen{
 
@@ -25,7 +23,7 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){
         panic!("e and phi are not coprime");
     }
 
-    let d: BigUint = Keygen::calculate_d(e.clone(), phi.clone());
+    let d: BigUint = Keygen::extended_euclidean_algorithm(e.clone(), phi.clone());
 
     ((n.clone(), d), (n, e.clone()))
     }
@@ -41,8 +39,56 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){
         }
         b
     }
-    
+
+
+    pub fn extended_euclidean_algorithm(e:BigUint,phi:BigUint) -> BigUint{
+
+        let mut e_bigint = Self::convert_biguint_to_bigint(e);
+        let mut phi_bigint = Self::convert_biguint_to_bigint(phi);
+
+        let mut x = BigInt::zero();
+        let mut y = BigInt::one();
+        let mut u = BigInt::one();
+        let mut v = BigInt::zero();
+
+        while e_bigint != BigInt::zero() {
+            let q = &phi_bigint / &e_bigint;
+            let r = &phi_bigint % &e_bigint;
+            let m = &x - &u * &q;
+            let n = &y - &v * &q;
+            phi_bigint = e_bigint;
+            e_bigint = r;
+            x = u;
+            y = v;
+            u = m;
+            v = n;
+        }
+        //rsa does not accept negative values for d
+        if x < BigInt::zero() {
+            x += phi_bigint;
+        }
+        Self::convert_bigint_to_biguint(x)
+
+
+    }
+    //convert biguint to bigint
+    fn convert_biguint_to_bigint(number: BigUint) -> num_bigint::BigInt{
+        let number_string: String = number.to_str_radix(10);
+        let number_bigint: num_bigint::BigInt = num_bigint::BigInt::from_str(&number_string).unwrap();
+        number_bigint
+    }
+
+    //convert bigint to biguint
+    fn convert_bigint_to_biguint(number: num_bigint::BigInt) -> BigUint{
+        let number_string: String = number.to_str_radix(10);
+        let number_biguint: BigUint = BigUint::from_str(&number_string).unwrap();
+        number_biguint
+    }
+
+
     //testing function for keygen with fixed values
+    //allow dead code is needed because this function is not used in the final program, but is used in testing
+    #[allow(dead_code)]
     pub fn dummy_keygen() -> ((BigUint, BigUint), (BigUint, BigUint)){
         let p: &BigUint = &61u32.to_biguint().unwrap();
         let q: &BigUint = &53u32.to_biguint().unwrap();
@@ -58,40 +104,9 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){
             panic!("e and phi are not coprime");
         }
 
-        let d: BigUint = Keygen::calculate_d(e.clone(), phi.clone());
+        let d: BigUint = Keygen::extended_euclidean_algorithm(e.clone(), phi.clone());
 
         ((n.clone(), d.clone()), (n, e.clone()))
     }
-
-    //calculate rsa d value
-    pub fn calculate_d(e: BigUint, phi: BigUint) -> BigUint{
-        let e_float: BigDecimal = Self::biguint_to_bigdecimal(&e);
-        let mut phi_float: BigDecimal = Self::biguint_to_bigdecimal(&phi);
-        let phi_float_orig: BigDecimal = phi_float;    
-        
-        let mut d_float: BigDecimal = (BigDecimal::one() + phi_float) % e_float;
-        let mut res: BigDecimal = d_float.clone();
-
-        while res != BigDecimal::zero() {
-            let updated_phi_float: BigDecimal = &phi_float_orig + &phi_float;
-            d_float = (BigDecimal::one() + updated_phi_float.clone()) / e_float.clone();
-            println!("d_float: {}", d_float);
-            phi_float = updated_phi_float;
-            res = d_float.clone();
-        }
-
-        let d: BigUint = d_float.to_u64().unwrap().into();
-        d
-    }
-
-    
-    fn biguint_to_bigdecimal(value: &BigUint) -> BigDecimal {
-        let value_str = value.to_str_radix(10);
-        BigDecimal::from_str(&value_str).unwrap()
-    }
 }
 
-    
-
-
-    

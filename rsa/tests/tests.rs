@@ -93,7 +93,7 @@ fn test_calculate_d() {
     let p_minus_one: BigUint = p - BigUint::one();
     let q_minus_one: BigUint = q - BigUint::one();
     let phi: BigUint = &p_minus_one * &q_minus_one;
-    let d: BigUint = Keygen::calculate_d(e.clone(), phi.clone());
+    let d: BigUint = Keygen::extended_euclidean_algorithm(e.clone(), phi.clone());
     assert_eq!(d, 3723233.to_biguint().unwrap());
     }
 

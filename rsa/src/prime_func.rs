@@ -15,6 +15,7 @@ pub fn get_candidate(n: u64) -> BigUint {
 }
 
 // Test if the number is prime WITH CERTAINITY, only used for tests
+#[allow(dead_code)]
 pub fn is_prime(n: &BigUint) -> bool {
     if n.is_zero() || n == &BigUint::one() {
         return false;
