@@ -2,10 +2,13 @@
 
 ## RSA implementation in Rust
 
+RSA implementation in Rust. Prime calculation done by hand.
+
 [Specifications](https://github.com/asvorg/tiralabra/blob/main/rsa/documentation/specifications.md)
 
 [Implementation](https://github.com/asvorg/tiralabra/blob/main/rsa/documentation/implementation.md)
 
+## Weekly reports
 
 [Week 1 report](https://github.com/asvorg/tiralabra/blob/main/rsa/weekly_reports/week1.md)
 
