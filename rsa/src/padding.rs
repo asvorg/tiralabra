@@ -1,10 +1,11 @@
 
+#[allow(dead_code)]
 pub struct Padding;
 impl Padding{
     
 
 // a padding function which takes the key size and the message and pads it with 0s
-// doesnt always work
+#[allow(dead_code)]
 pub fn pad(key_size: u64, message: &str) -> String{
     let mut padded_message: String = String::new();
     let message: String = message.to_string();
@@ -19,6 +20,7 @@ pub fn pad(key_size: u64, message: &str) -> String{
     }
 
 //unpad the message
+#[allow(dead_code)]
 pub fn unpad(message: &str) -> String{
     let mut message: String = message.to_string();
     let mut i: usize = 0;

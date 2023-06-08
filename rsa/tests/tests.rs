@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use num_bigint::{ToBigUint, BigUint};
+    use num_bigint::{ToBigUint, BigUint, BigInt, ToBigInt};
     use num_traits::{Zero, One};
     use rsa::prime_func::PrimeFunc;   
     use rsa::keygen::Keygen;
@@ -108,5 +108,33 @@ fn test_gcd() {
     let phi: BigUint = &p_minus_one * &q_minus_one;
     let gcd: BigUint = Keygen::gcd(e.clone(), phi.clone());
     assert_eq!(gcd, BigUint::one());
+    }
+
+#[test]
+//test extended Euclidean Algorithm
+fn test_extended_euclidean_algorithm() {
+    // Test with a known prime number
+    let p: BigUint = 61.to_biguint().unwrap();
+    let q: BigUint = 53.to_biguint().unwrap();
+    let e: BigUint = 65537.to_biguint().unwrap();
+    let p_minus_one: BigUint = p - BigUint::one();
+    let q_minus_one: BigUint = q - BigUint::one();
+    let phi: BigUint = &p_minus_one * &q_minus_one;
+    let d: BigUint = Keygen::extended_euclidean_algorithm(e.clone(), phi.clone());
+    assert_eq!(d, 3723233.to_biguint().unwrap());
+    }
+
+#[test]
+fn test_convert_biguint_to_bigint() {
+    let biguint: BigUint = 100.to_biguint().unwrap();
+    let bigint: BigInt = Keygen::convert_biguint_to_bigint(biguint);
+    assert_eq!(bigint, 100.to_bigint().unwrap());
+    }
+
+#[test]
+fn test_convert_bigint_to_biguint() {
+    let bigint: BigInt = 100.to_bigint().unwrap();
+    let biguint: BigUint = Keygen::convert_bigint_to_biguint(bigint);
+    assert_eq!(biguint, 100.to_biguint().unwrap());
     }
 }

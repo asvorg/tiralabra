@@ -5,3 +5,4 @@
 - Added some benchmark for the relevant functions
 - Some testing, still more needs to be done
 - Started working on the tests coverage, never done this before with Rust
+- Allowed issues

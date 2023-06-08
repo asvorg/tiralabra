@@ -72,14 +72,14 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){
 
     }
     //convert biguint to bigint
-    fn convert_biguint_to_bigint(number: BigUint) -> num_bigint::BigInt{
+    pub fn convert_biguint_to_bigint(number: BigUint) -> num_bigint::BigInt{
         let number_string: String = number.to_str_radix(10);
         let number_bigint: num_bigint::BigInt = num_bigint::BigInt::from_str(&number_string).unwrap();
         number_bigint
     }
 
     //convert bigint to biguint
-    fn convert_bigint_to_biguint(number: num_bigint::BigInt) -> BigUint{
+    pub fn convert_bigint_to_biguint(number: num_bigint::BigInt) -> BigUint{
         let number_string: String = number.to_str_radix(10);
         let number_biguint: BigUint = BigUint::from_str(&number_string).unwrap();
         number_biguint

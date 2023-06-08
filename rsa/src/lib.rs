@@ -3,3 +3,4 @@ pub mod keygen;
 pub mod encryption;
 pub mod decryption;
 pub mod padding;
+pub mod ui;
