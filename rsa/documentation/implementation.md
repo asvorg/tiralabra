@@ -99,6 +99,49 @@ Found 8 outliers among 100 measurements (8.00%)
 
 ```
 
+### Extended Euclidian algorithm benchmark
+
+This function is also of constant time complexity
+
+```
+extended_euclidean_algorithm/128 bits
+                        time:   [6.2085 µs 6.3033 µs 6.4137 µs]
+Found 11 outliers among 100 measurements (11.00%)
+  4 (4.00%) high mild
+  7 (7.00%) high severe
+
+extended_euclidean_algorithm/256 bits
+                        time:   [6.9914 µs 7.0603 µs 7.1565 µs]
+Found 16 outliers among 100 measurements (16.00%)
+  7 (7.00%) high mild
+  9 (9.00%) high severe
+
+extended_euclidean_algorithm/512 bits
+                        time:   [6.0830 µs 6.1552 µs 6.2865 µs]
+Found 9 outliers among 100 measurements (9.00%)
+  7 (7.00%) high mild
+  2 (2.00%) high severe
+
+extended_euclidean_algorithm/1024 bits
+                        time:   [6.3831 µs 6.4072 µs 6.4342 µs]
+Found 8 outliers among 100 measurements (8.00%)
+  7 (7.00%) high mild
+  1 (1.00%) high severe
+
+extended_euclidean_algorithm/2048 bits
+                        time:   [5.9280 µs 5.9366 µs 5.9459 µs]
+Found 5 outliers among 100 measurements (5.00%)
+  2 (2.00%) low mild
+  2 (2.00%) high mild
+  1 (1.00%) high severe
+  
+extended_euclidean_algorithm/4096 bits
+                        time:   [5.9985 µs 6.0705 µs 6.1543 µs]
+Found 12 outliers among 100 measurements (12.00%)
+  1 (1.00%) low mild
+  5 (5.00%) high mild
+  6 (6.00%) high severe
+```
 ## References
 - https://www.simplilearn.com/tutorials/cryptography-tutorial/rsa-algorithm
 - https://www.di-mgt.com.au/rsa_alg.html

@@ -21,7 +21,7 @@ fn generate_prime_benchmark(c: &mut Criterion) {
 
 //benchmark the extended euclidean algorithm
 fn extended_euclidean_algorithm_benchmark(c: &mut Criterion) {
-    let mut group: criterion::BenchmarkGroup<criterion::measurement::WallTime> = c.benchmark_group("calculate_d");
+    let mut group: criterion::BenchmarkGroup<criterion::measurement::WallTime> = c.benchmark_group("extended_euclidean_algorithm");
     let bit_sizes: [i32; 6] = [128,256,512, 1024, 2048, 4096];
 
     for &bits in bit_sizes.iter() {
@@ -55,5 +55,26 @@ fn gcd_benchmark(c: &mut Criterion) {
     group.finish();
 }
 
-criterion_group!(benches, gcd_benchmark);
+//benchmark the encryption and decryption functions
+fn encrypt_and_decrypt_benchmark(c: &mut Criterion) {
+    let mut group: criterion::BenchmarkGroup<criterion::measurement::WallTime> = c.benchmark_group("encrypt_and_decrypt");
+    let bit_sizes: [i32; 6] = [128,256,512, 1024, 2048, 4096];
+
+    for &bits in bit_sizes.iter() {
+        group.bench_function(format!("{} bits", bits), |b: &mut criterion::Bencher| {
+            b.iter(|| {
+                let ((n, d), (n_2, e)) = Keygen::keygen(bits as u64);
+                let message: String = String::from("This is a test message");
+                let message_uint: BigUint = rsa::encryption::Encrypt::convert_text_to_int(&message);
+                let message_uint_encrypted: BigUint = rsa::encryption::Encrypt::encrypt(message_uint.clone(),n,e);
+                let message_uint_decrypted: BigUint = rsa::decryption::Decrpypt::decrypt(message_uint_encrypted, n_2, d);
+                let _message_decrypted: String = rsa::decryption::Decrpypt::convert_int_to_text(&message_uint_decrypted);
+            });
+        });
+    }
+
+    group.finish();
+}
+
+criterion_group!(benches, encrypt_and_decrypt_benchmark);
 criterion_main!(benches);

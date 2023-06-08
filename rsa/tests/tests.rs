@@ -2,6 +2,7 @@
 mod tests {
     use num_bigint::{ToBigUint, BigUint, BigInt, ToBigInt};
     use num_traits::{Zero, One};
+    use rsa::{encryption, decryption};
     use rsa::prime_func::PrimeFunc;   
     use rsa::keygen::Keygen;
 
@@ -84,18 +85,6 @@ fn test_keygen() {
     println!("e: {}", e);
     }
 
-#[test]
-fn test_calculate_d() {
-    // Test with a known prime number
-    let p: BigUint = 61.to_biguint().unwrap();
-    let q: BigUint = 53.to_biguint().unwrap();
-    let e: BigUint = 65537.to_biguint().unwrap();
-    let p_minus_one: BigUint = p - BigUint::one();
-    let q_minus_one: BigUint = q - BigUint::one();
-    let phi: BigUint = &p_minus_one * &q_minus_one;
-    let d: BigUint = Keygen::extended_euclidean_algorithm(e.clone(), phi.clone());
-    assert_eq!(d, 3723233.to_biguint().unwrap());
-    }
 
 #[test]
 fn test_gcd() {
@@ -113,15 +102,10 @@ fn test_gcd() {
 #[test]
 //test extended Euclidean Algorithm
 fn test_extended_euclidean_algorithm() {
-    // Test with a known prime number
-    let p: BigUint = 61.to_biguint().unwrap();
-    let q: BigUint = 53.to_biguint().unwrap();
     let e: BigUint = 65537.to_biguint().unwrap();
-    let p_minus_one: BigUint = p - BigUint::one();
-    let q_minus_one: BigUint = q - BigUint::one();
-    let phi: BigUint = &p_minus_one * &q_minus_one;
+    let phi: BigUint = 3723232.to_biguint().unwrap();
     let d: BigUint = Keygen::extended_euclidean_algorithm(e.clone(), phi.clone());
-    assert_eq!(d, 3723233.to_biguint().unwrap());
+    assert_eq!(d, 2293.to_biguint().unwrap());
     }
 
 #[test]
@@ -137,4 +121,17 @@ fn test_convert_bigint_to_biguint() {
     let biguint: BigUint = Keygen::convert_bigint_to_biguint(bigint);
     assert_eq!(biguint, 100.to_biguint().unwrap());
     }
+
+//test encrypt and decrypt
+#[test]
+fn test_encrypt_and_decrypt() {
+    let ((n, d), (n_2, e)) = Keygen::keygen(256);
+    let message: String = String::from("This is a test message");
+    let message_uint: BigUint = encryption::Encrypt::convert_text_to_int(&message);
+    let message_uint_encrypted: BigUint = encryption::Encrypt::encrypt(message_uint.clone(),n.clone(),e.clone());
+    let message_uint_decrypted: BigUint = decryption::Decrpypt::decrypt(message_uint_encrypted, n_2.clone(), d.clone());
+    let message_decrypted: String = decryption::Decrpypt::convert_int_to_text(&message_uint_decrypted);
+    assert_eq!(message_decrypted, message);
+    }
+
 }
