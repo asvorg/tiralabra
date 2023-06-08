@@ -1,7 +1,7 @@
 use std::str::FromStr;
-use num_bigint::BigInt;
+use num_bigint::{BigInt, ToBigInt};
 use num_bigint::{BigUint, ToBigUint};
-use num_traits::{One, Zero};
+use num_traits::{One, Zero, abs};
 use crate::prime_func::PrimeFunc;
 pub struct Keygen;
 impl Keygen{
@@ -41,10 +41,12 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){
     }
 
     //extended euclidean algorithm for calculating d
-    pub fn extended_euclidean_algorithm(e:BigUint,phi:BigUint) -> BigUint{
+    pub fn extended_euclidean_algorithm(e:BigUint, phi:BigUint) -> BigUint{
 
         let mut e_bigint = Self::convert_biguint_to_bigint(e);
         let mut phi_bigint = Self::convert_biguint_to_bigint(phi);
+        let phi_copy = phi_bigint.clone();
+
 
         let mut x = BigInt::zero();
         let mut y = BigInt::one();
@@ -63,12 +65,15 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){
             u = m;
             v = n;
         }
-        //rsa does not accept negative values for d
-        if x < BigInt::zero() {
-            x += phi_bigint;
-        }
-        Self::convert_bigint_to_biguint(x)
 
+        let x_copy = x.clone();
+        //if x is negative, add phi to it
+        if x < BigInt::zero(){
+            x = x + phi_copy;
+            return Self::convert_bigint_to_biguint(x)
+        }
+        //return x as biguint
+        return Self::convert_bigint_to_biguint(x_copy) 
 
     }
     //convert biguint to bigint
@@ -78,16 +83,15 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){
         number_bigint
     }
 
-    //convert bigint to biguint
+    //convert bigint to biguint without str_radix
     pub fn convert_bigint_to_biguint(number: num_bigint::BigInt) -> BigUint{
-        let number_string: String = number.to_str_radix(10);
-        let number_biguint: BigUint = BigUint::from_str(&number_string).unwrap();
+        let number_string: String = number.to_string();
+        let number_biguint: BigUint = BigUint::parse_bytes(number_string.as_bytes(), 10).unwrap();
         number_biguint
     }
 
 
-    //testing function for keygen with fixed values
-    //allow dead code is needed because this function is not used in the final program, but is used in testing
+    //testing function for keygen with fixed values, used for testing
     #[allow(dead_code)]
     pub fn dummy_keygen() -> ((BigUint, BigUint), (BigUint, BigUint)){
         let p: &BigUint = &61u32.to_biguint().unwrap();

@@ -10,7 +10,7 @@ use crate::keygen::Keygen;
 
 fn main() {
     env::set_var("RUST_BACKTRACE", "128");
-    let ((n, d), (n_2, e)) = Keygen::keygen(1024);
+    let ((n, d), (n_2, e)) = Keygen::keygen(256);
     println!("n: {}", n);
     println!();
     println!("d: {}", d);
