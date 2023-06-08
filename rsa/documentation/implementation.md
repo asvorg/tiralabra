@@ -142,6 +142,46 @@ Found 12 outliers among 100 measurements (12.00%)
   5 (5.00%) high mild
   6 (6.00%) high severe
 ```
+
+### Encryption and decryption benchmark
+```
+encrypt_and_decrypt/128 bits
+                        time:   [2.1113 ms 2.1350 ms 2.1591 ms]
+
+encrypt_and_decrypt/256 bits
+                        time:   [5.9742 ms 6.0967 ms 6.2209 ms]
+                        
+Found 1 outliers among 100 measurements (1.00%)
+  1 (1.00%) high mild
+
+encrypt_and_decrypt/512 bits
+                        time:   [30.652 ms 32.320 ms 34.030 ms]
+Found 1 outliers among 100 measurements (1.00%)
+  1 (1.00%) high mild
+
+Benchmarking encrypt_and_decrypt/1024 bits: Warming up for 3.0000 s
+Warning: Unable to complete 100 samples in 5.0s. You may wish to increase target time to 24.3s, or reduce sample count to 20.
+encrypt_and_decrypt/1024 bits
+                        time:   [246.70 ms 272.24 ms 300.10 ms]
+Found 3 outliers among 100 measurements (3.00%)
+  2 (2.00%) high mild
+  1 (1.00%) high severe
+
+Benchmarking encrypt_and_decrypt/2048 bits: Warming up for 3.0000 s
+Warning: Unable to complete 100 samples in 5.0s. You may wish to increase target time to 420.2s, or reduce sample count to 10.
+encrypt_and_decrypt/2048 bits
+                        time:   [2.8697 s 3.2161 s 3.5833 s]
+Found 4 outliers among 100 measurements (4.00%)
+  4 (4.00%) high mild
+
+Benchmarking encrypt_and_decrypt/4096 bits: Warming up for 3.0000 s
+Warning: Unable to complete 100 samples in 5.0s. You may wish to increase target time to 4653.3s, or reduce sample count to 10.
+encrypt_and_decrypt/4096 bits
+                        time:   [37.329 s 42.513 s 48.030 s]
+Found 7 outliers among 100 measurements (7.00%)
+  7 (7.00%) high mild
+```
+
 ## References
 - https://www.simplilearn.com/tutorials/cryptography-tutorial/rsa-algorithm
 - https://www.di-mgt.com.au/rsa_alg.html

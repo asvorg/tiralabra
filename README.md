@@ -4,6 +4,10 @@
 
 RSA implementation in Rust. Prime calculation done by hand. Project for University of Helsinki datastructures and algorithms project work.
 
+[How to](https://github.com/asvorg/tiralabra/blob/main/rsa/documentation/howto.md)
+
+[Testing documentation](https://github.com/asvorg/tiralabra/blob/main/rsa/documentation/tests.md)
+
 [Specifications](https://github.com/asvorg/tiralabra/blob/main/rsa/documentation/specifications.md)
 
 [Implementation](https://github.com/asvorg/tiralabra/blob/main/rsa/documentation/implementation.md)
