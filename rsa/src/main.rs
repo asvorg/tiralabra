@@ -10,5 +10,5 @@ use crate::keygen::Keygen;
 
 fn main() {
     env::set_var("RUST_BACKTRACE", "128");
-    ui::Ui::encrypt_and_print();
+    ui::Ui::demo();
 }

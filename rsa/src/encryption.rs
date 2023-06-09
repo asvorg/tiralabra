@@ -20,4 +20,13 @@ pub fn encrypt(message: BigUint, n:BigUint, e:BigUint) -> BigUint{
     let ciphertext = message.modpow(&e, &n);
     ciphertext
     }
+//message length must be less than n
+pub fn check_length(message: BigUint, n:BigUint) -> bool{
+    if message < n{
+        true
+        }
+    else{
+        panic!("Message length must be less than n");
+        }
+    }
 }

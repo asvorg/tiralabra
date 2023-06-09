@@ -134,4 +134,25 @@ fn test_encrypt_and_decrypt() {
     assert_eq!(message_decrypted, message);
     }
 
+
+#[test]
+//test check_length function, check that the function does not panic when the message is not too long
+fn test_check_length_true() {
+    let message: String = String::from("S");
+    let n: BigUint = 1000000.to_biguint().unwrap();
+    let message_uint: BigUint = encryption::Encrypt::convert_text_to_int(&message);
+    assert!(encryption::Encrypt::check_length(message_uint, n));
+    }
+
+#[test]
+//test check_length function, check that the function panics when the message is too long
+#[should_panic]
+fn test_check_length_panic() {
+    let message: String = String::from("This message is too longThis message is too longThis message is too longThis message is too longThis message is too longThis message is too longThis message is too long");
+    let n: BigUint = 100.to_biguint().unwrap();
+    let message_uint: BigUint = encryption::Encrypt::convert_text_to_int(&message);
+    encryption::Encrypt::check_length(message_uint, n);
+    }
+
+
 }
