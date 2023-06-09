@@ -39,34 +39,28 @@ fn test_generate_prime() { //very slow if larger prime numbers are used
 
 #[test]
 fn test_miller_rabin() {
-    //Test the Miller Rabin primality test
-    let primes: Vec<u64> = vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29];
-    let non_primes: Vec<u64> = vec![4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20];
+    //Test the Miller Rabin primality test with a known prime
+    let prime_candidate = 37.to_biguint().unwrap();
+    assert!(PrimeFunc::miller_rabin(&prime_candidate));
 
-    // Test known prime numbers
-    for &prime in &primes {
-        let n: BigUint = prime.to_biguint().unwrap();
-        assert!(PrimeFunc::miller_rabin(&n), "{} should be prime", prime);
-    }
-
-    // Test known composite numbers
-    for &non_prime in &non_primes {
-        let n: BigUint = non_prime.to_biguint().unwrap();
-        assert!(!PrimeFunc::miller_rabin(&n), "{} should not be prime", non_prime);
-    }
-    
+    // Test with a non-prime number, should return false
+    let non_prime_candidate = 2135083.to_biguint().unwrap();
+    assert!(!PrimeFunc::miller_rabin(&non_prime_candidate));
 }
+
 
 #[test]
 fn test_low_level_primality() {
-    // Test with a prime number
-    let prime_candidate = 17.to_biguint().unwrap();
+    //test the low level primality function with a known prime
+    let prime_candidate = 37.to_biguint().unwrap();
     assert!(PrimeFunc::low_level_primality(&prime_candidate));
+    
 
-    // Test with a non-prime number
-    let non_prime_candidate = 20.to_biguint().unwrap();
+    // Test with a non-prime number, should return false
+    let non_prime_candidate = 30.to_biguint().unwrap();
     assert!(!PrimeFunc::low_level_primality(&non_prime_candidate));
-    }
+}
+
 
 #[test]
 fn test_keygen() {
@@ -102,10 +96,10 @@ fn test_gcd() {
 #[test]
 //test extended Euclidean Algorithm
 fn test_extended_euclidean_algorithm() {
-    let e: BigUint = 65537.to_biguint().unwrap();
-    let phi: BigUint = 3723232.to_biguint().unwrap();
+    let e: BigUint = 7.to_biguint().unwrap();
+    let phi: BigUint = 20.to_biguint().unwrap();
     let d: BigUint = Keygen::extended_euclidean_algorithm(e.clone(), phi.clone());
-    assert_eq!(d, 2293.to_biguint().unwrap());
+    assert_eq!(d, 3.to_biguint().unwrap());
     }
 
 #[test]

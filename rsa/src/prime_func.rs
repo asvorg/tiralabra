@@ -75,7 +75,7 @@ pub fn miller_rabin(n: &BigUint) -> bool {
             }
             i += 1;
         }
-        if i == r - 1 {
+        if i == r - 1{
             return false;
         }
     }
