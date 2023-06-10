@@ -90,30 +90,6 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint),(BigUint, BigU
         let number_biguint: BigUint = BigUint::parse_bytes(number_string.as_bytes(), 10).unwrap();
         number_biguint
     }
-
-
-    //testing function for keygen with fixed values, used for testing
-    #[allow(dead_code)]
-    pub fn dummy_keygen() -> ((BigUint, BigUint), (BigUint, BigUint)){
-        let p: &BigUint = &61u32.to_biguint().unwrap();
-        let q: &BigUint = &53u32.to_biguint().unwrap();
-        let n: BigUint = p * q;
-        let _z: BigUint = (p - 1u32) * (q - 1u32);
-
-        let e: BigUint = BigUint::from(65537u64);
-        let p_minus_one: BigUint = p - BigUint::one();
-        let q_minus_one: BigUint = q - BigUint::one();
-        let phi: BigUint = &p_minus_one * &q_minus_one;
-
-        if Keygen::gcd(e.clone(), phi.clone()) != BigUint::one(){
-            panic!("e and phi are not coprime");
-        }
-
-        let d: BigUint = Keygen::extended_euclidean_algorithm(e.clone(), phi.clone());
-
-        ((n.clone(), d.clone()), (n, e.clone()))
-    }
-
     
 }
 

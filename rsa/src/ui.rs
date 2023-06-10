@@ -6,6 +6,7 @@ use crate::decryption::Decrpypt;
 pub struct Ui;
 impl Ui {
     //very ugly demo function
+    #[cfg(not(tarpaulin_include))]
     pub fn demo() -> (){
         let mut prime_size:u64 = 256;
         let ((n, d), (n_2, e), (p, q)) = Keygen::keygen(prime_size);
@@ -66,6 +67,7 @@ impl Ui {
         println!("Message decrypted and converted: {}",message_decrypted_2);
     }
 
+    #[cfg(not(tarpaulin_include))]
     pub fn encrypt_and_print() -> () {
         //read the message from the user as an input
         let mut message: String = String::new();
