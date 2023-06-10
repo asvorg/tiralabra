@@ -1,3 +1,4 @@
+use num_integer::Integer;
 use num_traits::{One, Zero};
 use num_bigint::{BigUint, ToBigUint, RandBigInt};
 
@@ -45,44 +46,47 @@ pub fn low_level_primality(candidate: &BigUint) -> bool{// Test low level primal
     true
 }
 
-// Miller Rabin primality test with 50 iterations, probability of prime very high
+// Miller Rabin primality test, probability of prime very high
 pub fn miller_rabin(n: &BigUint) -> bool {
-    let k: u32 = 50;
-    if n <= &BigUint::one() {
-        return false;
-    }
-    let mut d: BigUint = n - BigUint::one();
-    let mut r: i32 = 0;
-    while &d % &BigUint::from(2u32) == BigUint::zero() {
-        d >>= 1;
-        r += 1;
-    }
-    let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
-    for _ in 0..k {
-        let a: BigUint = rng.gen_biguint_range(&BigUint::from(2u32), &n);
-        let mut x: BigUint = a.modpow(&d, &n);
-        if x == BigUint::one() || x == n - BigUint::one() {
-            continue;
+    //find d and r, where n-1 = 2^r * d
+    let mut d = n - &BigUint::from(1u32);
+    let mut r = BigUint::zero();
+    while d.is_even() {
+        d = d >> 1;
+        r = &r + &BigUint::one();
         }
-        let mut i: i32 = 0;
-        while i < r - 1 {
-            x = x.modpow(&BigUint::from(2u32), &n);
-            if x == BigUint::one() {
-                return false;
-            }
-            if x == n - BigUint::one() {
-                break;
-            }
-            i += 1;
+
+    let one_biguint: BigUint = BigUint::one();
+    let two_biguint: BigUint = &one_biguint + &one_biguint;
+    let mut rng = rand::thread_rng();
+    let random_num = one_biguint.clone();
+    if n != &BigUint::from(5u64) {
+        let _random_num = rng.gen_biguint_range(&one_biguint, &(n - BigUint::from(4u64)));
         }
-        if i == r - 1{
+
+    let a = BigUint::from(2u64) + random_num;
+    let mut x = BigUint::modpow(&a, &d, &n);
+    if x == one_biguint || x == n - &one_biguint {
+        return true;
+        }
+
+    while d != n - &one_biguint {
+        x = (&x * &x) % n;
+        d *= &two_biguint;
+        if x == one_biguint {
             return false;
-        }
+            }
+
+        if x == n - &one_biguint {
+            return true;
+            }
     }
-    true
+    false
 }
 
-pub fn generate_prime(n: u64) -> &'static BigUint { //Generate prime number using the other functions, note that the number is not a prime with certainity, only with a high probability
+
+// Generate prime number using the other functions, note that the number is not a prime with certainity, only with a high probability
+pub fn generate_prime(n: u64) -> &'static BigUint {
     loop {
         let candidate: BigUint = Self::get_candidate(n);
             if Self::low_level_primality(&candidate){

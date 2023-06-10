@@ -1,5 +1,4 @@
 use std::io;
-
 use crate::keygen::Keygen;
 use crate::encryption::Encrypt;
 use crate::decryption::Decrpypt;
@@ -9,13 +8,17 @@ impl Ui {
     //very ugly demo function
     pub fn demo() -> (){
         let mut prime_size:u64 = 256;
-        let ((n, d), (n_2, e)) = Keygen::keygen(prime_size);
+        let ((n, d), (n_2, e), (p, q)) = Keygen::keygen(prime_size);
         let n_copy = n.clone();
         let n_copy2 = n.clone();
         let n_copy3 = n_2.clone();
         let d_copy = d.clone();
         let e_copy = e.clone();
         println!("Prime size: {}", prime_size);
+        println!();
+        println!("p: {}", p);
+        println!();
+        println!("q: {}", q);
         println!();
         println!("n: {}", n_copy);
         println!();
@@ -71,7 +74,7 @@ impl Ui {
         io::stdin().read_line(&mut message).expect("Failed to read line");
         let prime_size: u64 = message.trim().parse().expect("Please type a number!");
         //generate the public and private keys
-        let ((n, d), (n_2, e)) = Keygen::keygen(prime_size);
+        let ((n, d), (n_2, e),(_p,_q)) = Keygen::keygen(prime_size);
         
         loop {
         println!("Enter a message to encrypt: ");

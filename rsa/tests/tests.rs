@@ -2,7 +2,7 @@
 mod tests {
     use num_bigint::{ToBigUint, BigUint, BigInt, ToBigInt};
     use num_traits::{Zero, One};
-    use rsa::{encryption, decryption};
+    use rsa::{encryption, decryption, prime_func};
     use rsa::prime_func::PrimeFunc;   
     use rsa::keygen::Keygen;
 
@@ -44,7 +44,7 @@ fn test_miller_rabin() {
     assert!(PrimeFunc::miller_rabin(&prime_candidate));
 
     // Test with a non-prime number, should return false
-    let non_prime_candidate = 2135083.to_biguint().unwrap();
+    let non_prime_candidate = 34.to_biguint().unwrap();
     assert!(!PrimeFunc::miller_rabin(&non_prime_candidate));
 }
 
@@ -64,7 +64,7 @@ fn test_low_level_primality() {
 
 #[test]
 fn test_keygen() {
-    let ((n, d), (m, e)) = Keygen::keygen(1024);
+    let ((n, d), (m, e),(p,q)) = Keygen::keygen(1024);
 
     // Assert that n, d, m, and e are not empty
     assert!(!n.is_zero());
@@ -119,7 +119,7 @@ fn test_convert_bigint_to_biguint() {
 //test encrypt and decrypt
 #[test]
 fn test_encrypt_and_decrypt() {
-    let ((n, d), (n_2, e)) = Keygen::keygen(256);
+    let ((n, d), (n_2, e),(p,q)) = Keygen::keygen(256);
     let message: String = String::from("This is a test message");
     let message_uint: BigUint = encryption::Encrypt::convert_text_to_int(&message);
     let message_uint_encrypted: BigUint = encryption::Encrypt::encrypt(message_uint.clone(),n.clone(),e.clone());

@@ -7,7 +7,7 @@ pub struct Keygen;
 impl Keygen{
 
 //generate the keys for the encryption and decryption functions
-pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){
+pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint),(BigUint, BigUint)){
     let p: &BigUint = PrimeFunc::generate_prime(num);
     let q: &BigUint = PrimeFunc::generate_prime(num);
     let n: BigUint = p * q;
@@ -25,7 +25,7 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint)){
 
     let d: BigUint = Keygen::extended_euclidean_algorithm(e.clone(), phi.clone());
 
-    ((n.clone(), d), (n, e.clone()))
+    ((n.clone(), d), (n, e.clone()), (p.clone(), q.clone()))
     }
 
    //implement gcd function

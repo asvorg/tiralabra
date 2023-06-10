@@ -63,7 +63,7 @@ fn encrypt_and_decrypt_benchmark(c: &mut Criterion) {
     for &bits in bit_sizes.iter() {
         group.bench_function(format!("{} bits", bits), |b: &mut criterion::Bencher| {
             b.iter(|| {
-                let ((n, d), (n_2, e)) = Keygen::keygen(bits as u64);
+                let ((n, d), (n_2, e),(_p,_q)) = Keygen::keygen(bits as u64);
                 let message: String = String::from("This is a test message");
                 let message_uint: BigUint = rsa::encryption::Encrypt::convert_text_to_int(&message);
                 let message_uint_encrypted: BigUint = rsa::encryption::Encrypt::encrypt(message_uint.clone(),n,e);
