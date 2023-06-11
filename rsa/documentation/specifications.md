@@ -9,6 +9,7 @@
 - Time complexity still unclear
 - I am a TKT student
 - The whole project will be done in english
+- A chat mode is a possibility
 
 # Functionality
 
@@ -16,6 +17,7 @@
 - Encrypt a message with user supplied keys, or with generated keys
 - Decrypt a message with user supplied keys
 - Demo mode
+- Demo mode with user supplied message
 
 ## Key generation
 

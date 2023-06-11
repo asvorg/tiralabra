@@ -8,5 +8,6 @@ mod ui;
 #[cfg(not(tarpaulin_include))]
 fn main() {
     env::set_var("RUST_BACKTRACE", "128");
+    ui::Ui::startup();
     ui::Ui::demo();
 }

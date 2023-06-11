@@ -88,5 +88,17 @@ impl Ui {
         //print the encrypted message
         println!("Encrypted message: {}",message_uint_encrypted);
             }
+    }
+    pub fn startup() -> () {
+        println!("Welcome to the RSA encryption and decryption program!");
+        println!("Please select the mode you would like to use:");
+        println!("1. Encrypt a message");
+        println!("2. Decrypt a message");
+        println!("3. Generate keys");
+        println!("4. Demo mode, generate relevant prime numbers and keys, encrypt and decrypt a message");
+        println!("5. Demo mode with user supplied keys");
+        println!("6. Exit");
+        println!("Please enter the number of the mode you would like to use: ");
+        println!();
         }
 }
