@@ -1,6 +1,6 @@
 # Test documentation
 
-Tests are done by unittesting the relevant functions. The main.rs and ui.rs modules are left out of testing. The tests are rerunnable simply by running ``` cargo test ```. Every function is tested with the relevant inputs.
+Tests are done by unittesting the relevant functions. The main.rs and ui.rs modules are left out of testing. The tests are rerunnable simply by running ``` cargo test ```. Every function is tested with the relevant inputs. All of the tests can be found under /rsa/tests/tests.rs.
 
 ## Tarpaulin coverage reports
 

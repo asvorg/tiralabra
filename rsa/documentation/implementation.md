@@ -182,12 +182,5 @@ Found 7 outliers among 100 measurements (7.00%)
   7 (7.00%) high mild
 ```
 
-## References
-- https://www.simplilearn.com/tutorials/cryptography-tutorial/rsa-algorithm
-- https://www.di-mgt.com.au/rsa_alg.html
-- https://www.di-mgt.com.au/rsa_theory.html
-- https://en.wikipedia.org/wiki/RSA_(cryptosystem)
-- https://www.geeksforgeeks.org/rsa-algorithm-cryptography/
-- https://brilliant.org/wiki/extended-euclidean-algorithm/
-- https://crypto.stackexchange.com/questions/5889/calculating-rsa-private-exponent-when-given-public-exponent-and-the-modulus-fact
-- https://en.wikipedia.org/wiki/Miller–Rabin_primality_test
+## Time complexity analysis
+
