@@ -1,8 +1,11 @@
 - Implemented working version of the extended Euclidean algorithm, d calculation works now
+- Fixed an issue with the Miller Rabin primality test returning always true
 - The core functionality now done
 - ~~ ~~Still some strange bug which makes the program crash sometimes, the frequency seems to be increasing as the size of the primes get larger~~ ~~ d being negative caused this
 - Started working on the UI to make the program properly usable
 - Added some benchmark for the relevant functions
-- Some testing, still more needs to be done
-- Started working on the tests coverage, never done this before with Rust
+- ~~Some testing, still more needs to be done~~
+- ~~Started working on the tests coverage~~, never done this before with Rust
+- Coverage done
 - Allowed issues
+- A few benchmarks for next week, and the UI, and the project is pretty much done
