@@ -2,7 +2,7 @@
 mod tests {
     use num_bigint::{ToBigUint, BigUint, BigInt, ToBigInt};
     use num_traits::{Zero, One};
-    use rsa::{encryption, decryption, prime_func};
+    use rsa::{encryption, decryption};
     use rsa::prime_func::PrimeFunc;   
     use rsa::keygen::Keygen;
 
@@ -64,7 +64,7 @@ fn test_low_level_primality() {
 
 #[test]
 fn test_keygen() {
-    let ((n, d), (m, e),(p,q)) = Keygen::keygen(1024);
+    let ((n, d), (m, e),(_p,_q)) = Keygen::keygen(1024);
 
     // Assert that n, d, m, and e are not empty
     assert!(!n.is_zero());
@@ -119,12 +119,12 @@ fn test_convert_bigint_to_biguint() {
 //test encrypt and decrypt
 #[test]
 fn test_encrypt_and_decrypt() {
-    let ((n, d), (n_2, e),(p,q)) = Keygen::keygen(256);
+    let ((n, d), (n_2, e),(_p,_q)) = Keygen::keygen(256);
     let message: String = String::from("This is a test message");
     let message_uint: BigUint = encryption::Encrypt::convert_text_to_int(&message);
     let message_uint_encrypted: BigUint = encryption::Encrypt::encrypt(message_uint.clone(),n.clone(),e.clone());
-    let message_uint_decrypted: BigUint = decryption::Decrpypt::decrypt(message_uint_encrypted, n_2.clone(), d.clone());
-    let message_decrypted: String = decryption::Decrpypt::convert_int_to_text(&message_uint_decrypted);
+    let message_uint_decrypted: BigUint = decryption::Decrypt::decrypt(message_uint_encrypted, n_2.clone(), d.clone());
+    let message_decrypted: String = decryption::Decrypt::convert_int_to_text(&message_uint_decrypted);
     assert_eq!(message_decrypted, message);
     }
 

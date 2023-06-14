@@ -1,6 +1,6 @@
 use std::str::FromStr;
 use num_bigint::BigInt;
-use num_bigint::{BigUint, ToBigUint};
+use num_bigint::BigUint;
 use num_traits::{One, Zero};
 use crate::prime_func::PrimeFunc;
 pub struct Keygen;
@@ -65,7 +65,6 @@ pub fn keygen(num:u64) -> ((BigUint, BigUint), (BigUint, BigUint),(BigUint, BigU
             u = m;
             v = n;
         }
-
 
         let x_copy = x.clone();
         //if x is negative, add phi to it

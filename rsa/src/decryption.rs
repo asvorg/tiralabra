@@ -1,8 +1,8 @@
 use num_bigint::{BigUint, ToBigUint};
 use num_traits::{Zero,ToPrimitive};
 
-pub struct Decrpypt;
-impl Decrpypt {
+pub struct Decrypt;
+impl Decrypt {
 
     //convert int to text
     pub fn convert_int_to_text(int: &BigUint) -> String{

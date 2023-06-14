@@ -67,8 +67,8 @@ fn encrypt_and_decrypt_benchmark(c: &mut Criterion) {
                 let message: String = String::from("This is a test message");
                 let message_uint: BigUint = rsa::encryption::Encrypt::convert_text_to_int(&message);
                 let message_uint_encrypted: BigUint = rsa::encryption::Encrypt::encrypt(message_uint.clone(),n,e);
-                let message_uint_decrypted: BigUint = rsa::decryption::Decrpypt::decrypt(message_uint_encrypted, n_2, d);
-                let _message_decrypted: String = rsa::decryption::Decrpypt::convert_int_to_text(&message_uint_decrypted);
+                let message_uint_decrypted: BigUint = rsa::decryption::Decrypt::decrypt(message_uint_encrypted, n_2, d);
+                let _message_decrypted: String = rsa::decryption::Decrypt::convert_int_to_text(&message_uint_decrypted);
             });
         });
     }
