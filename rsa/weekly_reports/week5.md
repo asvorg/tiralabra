@@ -1,2 +1,2 @@
-- Finalized the UI, program now fully down
+- Finalized the UI, program now fully done and functioning
 - Wrote some docs, more to be added on week 6
