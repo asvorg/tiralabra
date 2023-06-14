@@ -1,6 +1,6 @@
+//ui
 use std::io;
 use num_bigint::BigUint;
-
 use crate::keygen::Keygen;
 use crate::encryption::Encrypt;
 use crate::decryption::Decrypt;

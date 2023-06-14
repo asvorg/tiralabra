@@ -1,3 +1,4 @@
+//functions to generate prime numbers, test if a number is prime, and other functions related to prime numbers
 use num_integer::Integer;
 use num_traits::{One, Zero};
 use num_bigint::{BigUint, ToBigUint, RandBigInt};

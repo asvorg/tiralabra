@@ -1,3 +1,4 @@
+//keygen module for generating the keys for the encryption and decryption functions.
 use std::str::FromStr;
 use num_bigint::BigInt;
 use num_bigint::BigUint;

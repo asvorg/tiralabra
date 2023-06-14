@@ -1,3 +1,4 @@
+//encryption module and the relevant conversions from text to int and vice versa.
 use num_bigint::{BigUint};
 use num_traits::{Zero};
 
