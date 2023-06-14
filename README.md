@@ -21,3 +21,5 @@ RSA implementation in Rust. Prime calculation done by hand. Project for Universi
 [Week 3 report](https://github.com/asvorg/tiralabra/blob/main/rsa/weekly_reports/week3.md)
 
 [Week 4 report](https://github.com/asvorg/tiralabra/blob/main/rsa/weekly_reports/week4.md)
+
+[Week 5 report](https://github.com/asvorg/tiralabra/blob/main/rsa/weekly_reports/week5.md)
