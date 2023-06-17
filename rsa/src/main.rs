@@ -1,7 +1,7 @@
 use std::env;
-mod keygen;
-mod encryption;
 mod decryption;
+mod encryption;
+mod keygen;
 mod prime_func;
 mod ui;
 
