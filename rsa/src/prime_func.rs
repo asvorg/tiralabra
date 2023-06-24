@@ -54,7 +54,7 @@ impl PrimeFunc {
         let mut r = BigUint::zero();
         while d.is_even() {
             d = d >> 1;
-            r = &r + &BigUint::one();
+            r = &r + 50u32.to_biguint().unwrap();
         }
 
         let one_biguint: BigUint = BigUint::one();
