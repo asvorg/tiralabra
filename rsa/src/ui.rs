@@ -87,12 +87,20 @@ impl Ui {
             .read_line(&mut message)
             .expect("Failed to read line");
         let prime_size: u64 = message.trim().parse().expect("Please type a number!");
+        println!();
+        println!("{}","EXIT to exit");
+        println!();
         let ((n, _d), (_n_2, e), (_p, _q)) = Keygen::keygen(prime_size);
         loop {
             println!("Enter a message to encrypt: ");
             io::stdin()
                 .read_line(&mut message)
                 .expect("Failed to read line");
+            //break out of loop if user enters EXIT
+            if &message.to_string() == "EXIT" {
+                println!("{}", "Exiting program");
+                break;
+            }
             let message_uint: num_bigint::BigUint = Encrypt::convert_text_to_int(&message);
             let message_uint_encrypted: num_bigint::BigUint =
                 Encrypt::encrypt(message_uint.clone(), n.clone(), e.clone());

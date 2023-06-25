@@ -4,10 +4,12 @@ use num_bigint::BigInt;
 use num_bigint::BigUint;
 use num_traits::{One, Zero};
 use std::str::FromStr;
+use std::time::Instant;
 pub struct Keygen;
 impl Keygen {
     //generate the keys for the encryption and decryption functions
     pub fn keygen(num: u64) -> ((BigUint, BigUint), (BigUint, BigUint), (BigUint, BigUint)) {
+        let start = Instant::now();
         let p: &BigUint = PrimeFunc::generate_prime(num);
         let q: &BigUint = PrimeFunc::generate_prime(num);
         let n: BigUint = p * q;
@@ -24,6 +26,8 @@ impl Keygen {
         }
 
         let d: BigUint = Keygen::extended_euclidean_algorithm(e.clone(), phi.clone());
+
+        println!("Key generation time was {:?}", start.elapsed());
 
         ((n.clone(), d), (n, e.clone()), (p.clone(), q.clone()))
     }
