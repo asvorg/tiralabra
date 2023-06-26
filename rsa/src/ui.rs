@@ -90,14 +90,21 @@ impl Ui {
         println!();
         println!("{}","EXIT to exit");
         println!();
-        let ((n, _d), (_n_2, e), (_p, _q)) = Keygen::keygen(prime_size);
+        let ((n, d), (_n_2, e), (_p, _q)) = Keygen::keygen(prime_size);
+        println!();
+        println!("n: {}", n);
+        println!();
+        println!("e: {}", e);
+        println!();
+        println!("d: {}", d);
+        println!();
         loop {
+            message.clear();
             println!("Enter a message to encrypt: ");
             io::stdin()
                 .read_line(&mut message)
                 .expect("Failed to read line");
-            //break out of loop if user enters EXIT
-            if &message.to_string() == "EXIT" {
+            if message.trim() == "EXIT\n" || message.trim() == "EXIT" {
                 println!("{}", "Exiting program");
                 break;
             }
@@ -127,13 +134,39 @@ impl Ui {
 
     #[cfg(not(tarpaulin_include))]
     fn decrypt_and_print() {
-        let n_string = String::from("Enter n");
+        
+
+        let mut n_string: String = String::new();
+        let mut d_string: String = String::new();
+        println!("Enter n: ");
+        io::stdin()
+            .read_line(&mut n_string)
+            .expect("Failed to read line");
+        println!("Enter d: ");
+        io::stdin()
+            .read_line(&mut d_string)
+            .expect("Failed to read line");
         let d_string = String::from("Enter d");
-        let n: BigUint = BigUint::parse_bytes(&n_string.into_bytes(), 10).unwrap();
-        let d: BigUint = BigUint::parse_bytes(&d_string.into_bytes(), 10).unwrap();
-        let message_string = String::from("Enter message");
-        let message: BigUint = Encrypt::convert_text_to_int(&message_string);
-        println!("{}", Decrypt::decrypt(message, d, n));
+        let n: BigUint = Encrypt::convert_text_to_int(&n_string);
+        let d: BigUint = Encrypt::convert_text_to_int(&d_string);
+        let mut message_string: String = String::new();
+        loop { 
+            //get the message from the user
+            message_string.clear();
+            println!("Enter a message to decrypt: ");
+            io::stdin()
+                .read_line(&mut message_string)
+                .expect("Failed to read line");
+            if message_string.trim() == "EXIT\n" || message_string.trim() == "EXIT" {
+                println!("{}", "Exiting program");
+                break;
+            }
+            let message: BigUint = Encrypt::convert_text_to_int(&message_string);
+            let message_decrypted: BigUint = Decrypt::decrypt(message, n.clone(), d.clone());
+            let message_decrypted_string: String =
+                Decrypt::convert_int_to_text(&message_decrypted);
+            println!("Decrypted message: {}", message_decrypted_string);
+        }
     }
 
     #[cfg(not(tarpaulin_include))]
