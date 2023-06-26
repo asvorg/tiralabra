@@ -6,7 +6,7 @@ If you don't have Rust installed, you can follow the steps [here](https://www.ru
 
 ## Running and using the program
 
-Once you have Rust installed, clone the repository by running ```git clone https://github.com/asvorg/tiralabra```. Once you have the repository cloned, navigate to the rsa subfolder with your selected terminal. The program can be run with ```cargo run```.
+Once you have Rust installed, clone the repository by running ```git clone https://github.com/asvorg/tiralabra```. Once you have the repository cloned, navigate to the rsa subfolder with your selected terminal. The program can be run with ```cargo run```. Note that the first compilation will take some time.
 
 Once the program runs you are greeted with this pretty self explanatory message:
 

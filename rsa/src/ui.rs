@@ -133,9 +133,7 @@ impl Ui {
     }
 
     #[cfg(not(tarpaulin_include))]
-    fn decrypt_and_print() {
-        
-
+    fn decrypt_and_print() { //broken
         let mut n_string: String = String::new();
         let mut d_string: String = String::new();
         println!("Enter n: ");

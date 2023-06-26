@@ -1,5 +1,5 @@
 - Added 40 rounds to the renewed Miller Rabin, which I forgot to do
 - Printing the key generation time
 - Added the option to exit from option 1
-- Option 2 makes the program crash, will fix this on the last week
-- Need to finish the documentation on the last week
+- ~~Option 2 makes the program crash, will fix this on the last week~~ not crashing anymore, but still bugged
+- Need to finish the documentation on the last week, mainly time complexity analysis
