@@ -134,6 +134,8 @@ impl Ui {
 
     #[cfg(not(tarpaulin_include))]
     fn decrypt_and_print() { //broken
+        use std::str::FromStr;
+
         let mut n_string: String = String::new();
         let mut d_string: String = String::new();
         println!("Enter n: ");
@@ -145,8 +147,8 @@ impl Ui {
             .read_line(&mut d_string)
             .expect("Failed to read line");
         let d_string = String::from("Enter d");
-        let n: BigUint = Encrypt::convert_text_to_int(&n_string);
-        let d: BigUint = Encrypt::convert_text_to_int(&d_string);
+        let n: BigUint = BigUint::from_str(&n_string).expect("Invalid number");
+        let d: BigUint = BigUint::from_str(&d_string).expect("Invalid number");
         let mut message_string: String = String::new();
         loop { 
             //get the message from the user
