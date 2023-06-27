@@ -3,7 +3,7 @@
 ### Prime generation benchmark
 
 Prime generation times with the generate_prime() function from bitsizes 128, through to 4096 bits:
-
+As the bit size doubles, the execution time approximately quadruples. The time complexity could be somewhere between $O(2^N)$ and $O(2^{2N})$
 ```
 generate_prime/128 bits time:   [2.1422 ms 2.1770 ms 2.2121 ms]
 
@@ -184,3 +184,4 @@ Found 7 outliers among 100 measurements (7.00%)
 
 ## Time complexity analysis
 
+Since most of the core functionality functions are of constant time complexity as can been seen above, we are only going to analyze the whole encryption/decryption process, with the prime generation inculded within
