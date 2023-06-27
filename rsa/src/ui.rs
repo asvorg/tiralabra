@@ -118,6 +118,10 @@ impl Ui {
     pub fn menu() -> () {
         println!();
         println!("Welcome to the RSA encryption and decryption program!");
+        println!("This program is designed to encrypt and decrypt messages using the RSA algorithm.");
+        println!("The program will ask for a prime size, this is the number of bits in the prime numbers p and q, which are used to generate the keys");
+        println!("The private key is (n,d) and the public key is (n,e)");
+        println!();
         println!("Please select the mode you would like to use:");
         println!("1. Encrypt a message");
         println!("2. Decrypt a message");
@@ -133,8 +137,7 @@ impl Ui {
     }
 
     #[cfg(not(tarpaulin_include))]
-    fn decrypt_and_print() { //broken
-        use std::str::FromStr;
+    fn decrypt_and_print() {
 
         let mut n_string: String = String::new();
         let mut d_string: String = String::new();
@@ -142,30 +145,29 @@ impl Ui {
         io::stdin()
             .read_line(&mut n_string)
             .expect("Failed to read line");
+        n_string.retain(|c| !c.is_whitespace());
         println!("Enter d: ");
         io::stdin()
             .read_line(&mut d_string)
             .expect("Failed to read line");
-        let d_string = String::from("Enter d");
-        let n: BigUint = BigUint::from_str(&n_string).expect("Invalid number");
-        let d: BigUint = BigUint::from_str(&d_string).expect("Invalid number");
-        let mut message_string: String = String::new();
+        d_string.retain(|c| !c.is_whitespace());
+        let n: BigUint = n_string.parse().expect("Invalid number");
+        let d: BigUint = d_string.parse().expect("Invalid number");
+        let mut message: String = String::new();
         loop { 
             //get the message from the user
-            message_string.clear();
+            message.clear();
             println!("Enter a message to decrypt: ");
             io::stdin()
-                .read_line(&mut message_string)
+                .read_line(&mut message)
                 .expect("Failed to read line");
-            if message_string.trim() == "EXIT\n" || message_string.trim() == "EXIT" {
+            if message.trim() == "EXIT\n" || message.trim() == "EXIT" {
                 println!("{}", "Exiting program");
                 break;
             }
-            let message: BigUint = Encrypt::convert_text_to_int(&message_string);
-            let message_decrypted: BigUint = Decrypt::decrypt(message, n.clone(), d.clone());
-            let message_decrypted_string: String =
-                Decrypt::convert_int_to_text(&message_decrypted);
-            println!("Decrypted message: {}", message_decrypted_string);
+            let message_uint: BigUint = message.trim().parse().expect("Invalid number");
+            let message_decrypted = Decrypt::decrypt(message_uint, n.clone(), d.clone());
+            println!("Decrypted message: {}", Decrypt::convert_int_to_text(&message_decrypted));
         }
     }
 

@@ -46,7 +46,16 @@ mod tests {
         // Test with a non-prime number, should return false
         let non_prime_candidate = 34.to_biguint().unwrap();
         assert!(!PrimeFunc::miller_rabin(&non_prime_candidate));
+
+        // Test with a large prime number
+        let large_prime_candidate: BigUint = BigUint::from(2147462143u128);
+        assert!(PrimeFunc::miller_rabin(&large_prime_candidate));
+
+        let prime_product = PrimeFunc::generate_prime(1024) * PrimeFunc::generate_prime(1024);
+        assert!(!PrimeFunc::miller_rabin(&prime_product));
     }
+
+
 
     #[test]
     fn test_low_level_primality() {
