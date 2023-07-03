@@ -1,3 +1,4 @@
 - Fixed the decryption function in UI, decrypts properly now
 - Added 10 digit prime number test to Miller Rabin
 - Added two 1024 prime number product test to Miller Rabin
+- Added time complexity analysis to implementation.md
