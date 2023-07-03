@@ -194,3 +194,6 @@ The following are the mean absolute deviations for the 3 largest tested bit size
 <img src="https://raw.githubusercontent.com/asvorg/tiralabra/e0292ef21d466643dba8da7dbf49d3260ada9cfa/rsa/documentation/criterion2/reports/encrypt_and_decrypt/4096%20bits/MAD.svg">
 <img src="https://raw.githubusercontent.com/asvorg/tiralabra/56304564e9d3d375d2cc34e73c8838743d6694a7/rsa/documentation/criterion2/reports/encrypt_and_decrypt/2048%20bits/MAD.svg">
 <img src="https://raw.githubusercontent.com/asvorg/tiralabra/56304564e9d3d375d2cc34e73c8838743d6694a7/rsa/documentation/criterion2/reports/encrypt_and_decrypt/1024%20bits/MAD.svg">
+<img src="https://raw.githubusercontent.com/asvorg/tiralabra/87ffee67dc7001d05095738fda161c19905416b3/rsa/documentation/criterion2/reports/encrypt_and_decrypt/512%20bits/MAD.svg">
+
+From these graphs we can see that the encryption and decryption time increases roughly by 10x as the 
