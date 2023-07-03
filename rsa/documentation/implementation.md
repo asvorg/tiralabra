@@ -187,5 +187,10 @@ Found 7 outliers among 100 measurements (7.00%)
 Since most of the core functionality functions are of constant time complexity as can been seen above, we are only going to analyze the whole encryption/decryption process, with the prime generation inculded within.
 
 
-![4096 bits MAD](https://raw.githubusercontent.com/asvorg/tiralabra/e0292ef21d466643dba8da7dbf49d3260ada9cfa/rsa/documentation/criterion2/reports/encrypt_and_decrypt/4096%20bits/MAD.svg)
+The following are the mean absolute deviations for the 3 largest tested bit sizes (1024,2048 and 4096 bits)
+
+
+
 <img src="https://raw.githubusercontent.com/asvorg/tiralabra/e0292ef21d466643dba8da7dbf49d3260ada9cfa/rsa/documentation/criterion2/reports/encrypt_and_decrypt/4096%20bits/MAD.svg">
+<img src="https://raw.githubusercontent.com/asvorg/tiralabra/56304564e9d3d375d2cc34e73c8838743d6694a7/rsa/documentation/criterion2/reports/encrypt_and_decrypt/2048%20bits/MAD.svg">
+<img src="https://raw.githubusercontent.com/asvorg/tiralabra/56304564e9d3d375d2cc34e73c8838743d6694a7/rsa/documentation/criterion2/reports/encrypt_and_decrypt/1024%20bits/MAD.svg">
