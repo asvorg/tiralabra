@@ -1,3 +1,8 @@
+## General structure
+
+The inner functions of this program are described more in depth in the specifications document. The prime generation is handled in the functions in prime_func.rs, the resulting primes are passed into the key generation functions residing in keygen.rs. The encryption and decrytion itself are handled by the functions in encryption.rs and decryption.rs. ui.rs handles the user input, and calls the relevant functions to make the program usable.
+
+
 ## Benchmarks
 
 ### Prime generation benchmark
@@ -187,7 +192,7 @@ Found 7 outliers among 100 measurements (7.00%)
 Since most of the core functionality functions are of constant time complexity as can been seen above, we are only going to analyze the whole encryption/decryption process, with the prime generation inculded within.
 
 
-The following are the mean absolute deviations for the 3 largest tested bit sizes (1024,2048 and 4096 bits).
+The following are the mean absolute deviations for the 4 largest tested bit sizes (512,1024,2048 and 4096 bits).
 
 <div style="background-color: rgb(50, 50, 50);">
 
@@ -196,4 +201,4 @@ The following are the mean absolute deviations for the 3 largest tested bit size
 <img src="https://raw.githubusercontent.com/asvorg/tiralabra/56304564e9d3d375d2cc34e73c8838743d6694a7/rsa/documentation/criterion2/reports/encrypt_and_decrypt/1024%20bits/MAD.svg">
 <img src="https://raw.githubusercontent.com/asvorg/tiralabra/87ffee67dc7001d05095738fda161c19905416b3/rsa/documentation/criterion2/reports/encrypt_and_decrypt/512%20bits/MAD.svg">
 
-From these graphs we can see that the encryption and decryption time increases roughly by 10x as the 
+From these graphs we can see that the encryption and decryption time increases roughly by 10x as the the the prime size doubles. This indicates quadratic time complexity, $O(n^2)$ for the whole process of calculating the primes, then deriving the keys, encrypting a piece of text, and decrypting it back to plaintext.
