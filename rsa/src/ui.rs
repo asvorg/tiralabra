@@ -129,7 +129,7 @@ impl Ui {
         println!(
             "4. Demo mode, generate relevant prime numbers and keys, encrypt and decrypt a message"
         );
-        println!("5. Demo mode with user supplied keys");
+        println!("5. Demo mode with user supplied keys(this is not implemented properly yet)");
         println!("6. Exit");
         println!("7. This message");
         println!("Please enter the number of the mode you would like to use: ");
@@ -190,7 +190,7 @@ impl Ui {
     }
 
     #[cfg(not(tarpaulin_include))]
-    fn demo_with_user_keys() -> () {
+    fn demo_with_user_keys() -> () { //not implemented properly
         let mut message: String = String::new();
         println!("Enter prime size: ");
         io::stdin()
@@ -224,7 +224,7 @@ impl Ui {
             2 => Ui::decrypt_and_print(),
             3 => Ui::generate_keys(),
             4 => Ui::demo(),
-            5 => Ui::demo_with_user_keys(),
+            5 => Ui::demo_with_user_keys(), //not implemented properly
             6 => Ui::quit(),
             7 => Ui::menu(),
             _ => println!("Please enter a valid number"),
