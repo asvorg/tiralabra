@@ -184,4 +184,8 @@ Found 7 outliers among 100 measurements (7.00%)
 
 ## Time complexity analysis
 
-Since most of the core functionality functions are of constant time complexity as can been seen above, we are only going to analyze the whole encryption/decryption process, with the prime generation inculded within
+Since most of the core functionality functions are of constant time complexity as can been seen above, we are only going to analyze the whole encryption/decryption process, with the prime generation inculded within.
+
+
+![4096 bits MAD](https://raw.githubusercontent.com/asvorg/tiralabra/e0292ef21d466643dba8da7dbf49d3260ada9cfa/rsa/documentation/criterion2/reports/encrypt_and_decrypt/4096%20bits/MAD.svg)
+<img src="https://raw.githubusercontent.com/asvorg/tiralabra/e0292ef21d466643dba8da7dbf49d3260ada9cfa/rsa/documentation/criterion2/reports/encrypt_and_decrypt/4096%20bits/MAD.svg">
