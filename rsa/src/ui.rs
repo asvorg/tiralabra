@@ -33,7 +33,6 @@ impl Ui {
         println!("Message: {}", message);
         println!();
         let message_uint: num_bigint::BigUint = Encrypt::convert_text_to_int(&message);
-        Encrypt::check_length(message_uint.clone(), n_copy.clone());
         let message_uint_encrypted: num_bigint::BigUint =
             Encrypt::encrypt(message_uint.clone(), n, e);
         println!("Message converted to integer: {}", message_uint);

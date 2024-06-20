@@ -16,15 +16,11 @@ impl Encrypt {
 
     //implement encrypt function
     pub fn encrypt(message: BigUint, n: BigUint, e: BigUint) -> BigUint {
+        if message >= n {
+            println!("Message is too is too long for the key size");
+            return BigUint::zero();
+        }
         let ciphertext = message.modpow(&e, &n);
         ciphertext
-    }
-    //message length must be less than n
-    pub fn check_length(message: BigUint, n: BigUint) -> bool {
-        if message < n {
-            true
-        } else {
-            panic!("Message length must be less than n");
-        }
     }
 }
